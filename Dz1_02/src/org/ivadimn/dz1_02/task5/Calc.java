@@ -14,7 +14,7 @@ public class Calc {
         Scanner console = new Scanner(System.in);
         System.out.println("Простой калькулятор (данные вводятся через пробел)");
         do {
-            System.out.println("Введите выражение для расчёта (например: 2 + 3) ");
+            System.out.println("Введите выражение для расчёта (например: 2 + 3 ) ");
             operand1 = console.nextDouble();
             oper = console.next();
             operand2 = console.nextDouble();

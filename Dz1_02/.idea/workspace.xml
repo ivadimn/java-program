@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf60c655-0975-46dc-af39-c4e7928f725d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task4/MinMax.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task5/Calc.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Dz1_02.iws" />
@@ -55,11 +55,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MinMax.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MinMax.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ivadimn/dz1_02/task4/MinMax.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
+            <state relative-caret-position="465">
+              <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Calc.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/ivadimn/dz1_02/task5/Calc.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="431">
+              <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -90,6 +100,7 @@
         <option value="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task2/Sequence.java" />
         <option value="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task3/Multiply.java" />
         <option value="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task4/MinMax.java" />
+        <option value="$PROJECT_DIR$/src/org/ivadimn/dz1_02/task5/Calc.java" />
       </list>
     </option>
   </component>
@@ -139,6 +150,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Dz1_02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dz1_02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dz1_02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dz1_02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task5" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -245,7 +278,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="RunManager" selected="Application.MinMax">
+  <component name="RunManager" selected="Application.Calc">
     <configuration default="false" name="Inversion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -314,6 +347,26 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="org.ivadimn.dz1_02.task4.MinMax" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Dz1_02" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Calc" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.ivadimn.dz1_02.task5.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.ivadimn.dz1_02.task5.Calc" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -560,18 +613,20 @@
       <listeners />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Inversion" />
       <item index="1" class="java.lang.String" itemvalue="Application.Sequence" />
       <item index="2" class="java.lang.String" itemvalue="Application.Multiply" />
       <item index="3" class="java.lang.String" itemvalue="Application.MinMax" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Calc" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.MinMax" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Multiply" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Sequence" />
-        <item index="3" class="java.lang.String" itemvalue="Application.Inversion" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.Calc" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MinMax" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Multiply" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Sequence" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Inversion" />
       </list>
     </recent_temporary>
   </component>
@@ -656,8 +711,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ivadimn/dz1_02/task4/MinMax.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
+        <state relative-caret-position="465">
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ivadimn/dz1_02/task5/Calc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
           <folding />
         </state>
       </provider>

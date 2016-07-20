@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad2d8f11-9945-4e7c-a0a2-c38cf902c101" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Sq/.idea/misc.xml" afterPath="$PROJECT_DIR$/../Sq/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Sq/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Sq/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Sq/src/org/ivadimn/sq/ui/Main.java" afterPath="$PROJECT_DIR$/../Sq/src/org/ivadimn/sq/ui/Main.java" />
     </list>
     <ignored path="Ks.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +28,7 @@
       <file leaf-file-name="Ks.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="465">
               <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
               <folding />
             </state>
@@ -122,8 +124,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -512,7 +514,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Ks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
           <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
           <folding />
         </state>

@@ -130,4 +130,27 @@ public class Rectangle {
         else
             return new Rectangle(nx1, ny1, nx2, ny2);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rectangle rectangle = (Rectangle) o;
+
+        if (x1 != rectangle.x1) return false;
+        if (y1 != rectangle.y1) return false;
+        if (x2 != rectangle.x2) return false;
+        return y2 == rectangle.y2;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x1;
+        result = 31 * result + y1;
+        result = 31 * result + x2;
+        result = 31 * result + y2;
+        return result;
+    }
 }

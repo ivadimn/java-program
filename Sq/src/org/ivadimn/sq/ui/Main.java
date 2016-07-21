@@ -2,42 +2,50 @@ package org.ivadimn.sq.ui;
 
 import org.ivadimn.sq.model.Rectangle;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by vadim on 14.07.16.
  */
 public class Main {
+    private static int step = 0;
+
     public static void main(String[] args) {
 
 
-        Rectangle[] rects = new Rectangle[3];
-        ArrayList<Rectangle> inters = new ArrayList<>();
-
+        HashSet<Rectangle> rects = new HashSet<>();
         int s = 0;
 
 
-        rects[0] = new Rectangle(0, 0, 5, 7);
-        rects[1] = new Rectangle(1, 1, 6, 8);
-        rects[2] = new Rectangle(2, 2, 7, 9);
-        //rects[3] = new Rectangle(3, 4,6, 8);
-        //rects[4] = new Rectangle(4, 6, 7, 10);
-        //rects[5] = new Rectangle(5,7, 8, 11);
+        rects.add(new Rectangle(0, 0, 5, 7));
+        rects.add(new Rectangle(1, 1, 6, 8));
+        rects.add(new Rectangle(2, 2, 7, 9));
+
         int sMinus = 0;
         int sPlus = 0;
         int ss = 0;
-        for (int k = 0; k < rects.length; k++) {
-            s = s + rects[k].getSquare();
-            System.out.println("Площадь  - " + rects[k].getSquare());
+        Iterator<Rectangle> iter = rects.iterator();
+        while (iter.hasNext()) {
+            Rectangle r = iter.next();
+            s = s + r.getSquare();
+            System.out.println("Площадь  - " + r.getSquare());
         }
+        /*for (int k = 0; k < rects.size(); k++) {
+            s = s + rects.get(k).getSquare();
+            System.out.println("Площадь  - " + rects.get(k).getSquare());
+        }*/
+
+        s = s - getIntersrctionSquare(rects);
         System.out.println("Площадь прямоугольников - " + s);
-        for (int i = 0; i < rects.length; i++) {
+
+        /*for (int i = 0; i < rects.length; i++) {
             for(int j = i + 1; j < rects.length; j++) {
 
                 if (j != i) {
 
                     Rectangle r = rects[i].getIntersection(rects[j]);
                     sMinus += r.getSquare();
+                    System.out.println("Площадии 1-х пересечения- " + r.getSquare());
                     inters.add(r);
                 }
             }
@@ -50,12 +58,49 @@ public class Main {
                 if (j != i) {
 
                     Rectangle r = inters.get(i).getIntersection(inters.get(j));
+                    System.out.println("Площадии 2-х пересечения- " + r.getSquare());
                     sPlus += r.getSquare();
                 }
             }
             //System.out.println("s = " + s);
         }
         s = s - sMinus + sPlus;
-        System.out.println("Площадь пересечения - " + s);
+        System.out.println("Площадь пересечения - " + s);*/
+    }
+
+    private static int getIntersrctionSquare(HashSet<Rectangle> rects) {
+        int s = 0;
+        HashSet<Rectangle> inters = new HashSet<>();
+        List<Rectangle>  r = new ArrayList<>();;
+        Iterator<Rectangle> iter = rects.iterator();
+        while(iter.hasNext())
+            r.add(iter.next());
+
+        for (int i = 0; i < r.size(); i++) {
+            for(int j = i + 1; j < r.size(); j++) {
+
+                if (!r.get(i).equals(r.get(j))) {
+
+                    Rectangle ri = r.get(i).getIntersection(r.get(j));
+                    if (ri.getSquare() > 0) {
+                        s += ri.getSquare();
+                        inters.add(ri);
+                    }
+                }
+            }
+            //System.out.println("s = " + s);
+        }
+        if (s > 0) {
+            if (step % 2 == 0) {
+                ++step;
+                return s - getIntersrctionSquare(inters);
+            }
+            else {
+                ++step;
+                return s + getIntersrctionSquare(inters);
+            }
+
+        } else
+            return 0;
     }
 }

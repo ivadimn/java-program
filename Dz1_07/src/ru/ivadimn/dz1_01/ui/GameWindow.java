@@ -14,6 +14,7 @@ public class GameWindow extends JFrame {
     public static final int WINDOW_HEIGHT = 550;
 
     private final StartGameWindow paramWindows;
+    private final Map map;
 
     public GameWindow() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -25,8 +26,11 @@ public class GameWindow extends JFrame {
         setTitle("Крестики-нолики");
         initButtons();
         paramWindows = new StartGameWindow(this);
+        map = new Map();
+        add(map, BorderLayout.CENTER);
         setVisible(true);
         paramWindows.setVisible(true);
+        startGame();
     }
 
     private void initButtons() {
@@ -53,7 +57,8 @@ public class GameWindow extends JFrame {
     }
 
     private void startGame() {
-
+        map.initMap(4, 4, 0);
+        map.updateUI();
     }
 
 }

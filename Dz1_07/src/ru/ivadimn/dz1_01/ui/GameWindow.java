@@ -25,12 +25,13 @@ public class GameWindow extends JFrame {
         setResizable(false);
         setTitle("Крестики-нолики");
         initButtons();
-        paramWindows = new StartGameWindow(this);
+
         map = new Map();
         add(map, BorderLayout.CENTER);
         setVisible(true);
+        paramWindows = new StartGameWindow(this);
         paramWindows.setVisible(true);
-        startGame();
+        //startGame();
     }
 
     private void initButtons() {
@@ -47,7 +48,7 @@ public class GameWindow extends JFrame {
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startGame();
+                paramWindows.setVisible(true);
             }
         });
         pnlButton.add(btnStart);
@@ -56,8 +57,8 @@ public class GameWindow extends JFrame {
 
     }
 
-    private void startGame() {
-        map.initMap(4, 4, 0);
+    public void startGame(int sizeGame, int sizeWin, int mode) {
+        map.startNewGame(sizeGame, sizeWin, mode);
         map.updateUI();
     }
 

@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by vadim on 03.08.16.
@@ -47,6 +49,14 @@ public class StartGameWindow extends JFrame {
 
         initGameModeComponents();
         initGameSizeComponents();
+        JButton btnStart = new JButton("Начать игру");
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameStart();
+            }
+        });
+        add(btnStart);
 
     }
 
@@ -96,6 +106,13 @@ public class StartGameWindow extends JFrame {
         });
         add(jsSizeWin);
     }
+
+    private void gameStart() {
+        int mode = (rbMode1.isSelected()) ? Map.PLAYER_VS_COMP : Map.PLAYER_VS_PLAYER;
+        gameWindow.startGame(sizeField, sizeWin, mode);
+        setVisible(false);
+    }
+
 
 };
 

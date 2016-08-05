@@ -18,7 +18,7 @@ public class Map extends JPanel {
     public static final int PLAYER_VS_COMP = 0;
     public static final int PLAYER_VS_PLAYER = 1;
 
-    private int size = 3;
+    private int size;
     private int winLen;
     private int mode;
     private int[][] field;
@@ -41,29 +41,21 @@ public class Map extends JPanel {
         });
     }
 
-    public void initMap(int sizeGame, int sizeWin, int mode) {
+    public void startNewGame(int sizeGame, int sizeWin, int mode) {
         this.mode = mode;
         this.size = sizeGame;
         this.winLen = sizeWin;
         Rectangle bounds = getBounds();
         widthCell = bounds.width / size;
         heightCell = bounds.height / size;
-        clearField();
-
-    }
-
-    private void clearField() {
         field = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                field[i][j] = 0;
-            }
-        }
     }
+
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        Rectangle2D.Double rd = new Rectangle2D.Double();
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
         Rectangle bounds = getBounds();
@@ -78,6 +70,7 @@ public class Map extends JPanel {
             g2.drawLine(cl, 0, cl, bounds.height);
             cl += heightCell;
         }
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (field[i][j] == 1) {

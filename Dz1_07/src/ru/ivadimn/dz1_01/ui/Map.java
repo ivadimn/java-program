@@ -54,7 +54,7 @@ public class Map extends JPanel {
 
     public void startNewGame(int sizeGame, int sizeWin, int mode) {
         this.mode = mode;
-        this.playerStep = true;
+        playerStep = true;
         this.finish = false;
         this.size = sizeGame;
         this.winLen = sizeWin;

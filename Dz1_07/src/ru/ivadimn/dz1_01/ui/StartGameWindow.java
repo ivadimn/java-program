@@ -21,11 +21,6 @@ public class StartGameWindow extends JFrame {
     private int sizeField = 3;
     private int sizeWin = 3;
 
-    public static final String LABEL_MODE = "Выберите режим игры:";
-    public static final String LABEL_PLAYER_COMP = "Игрок против коипьютера";
-    public static final String LABEL_PLAYER_PLAYER = "Игрок против игрока";
-    public static final String LABEL_SIZE_FIELD = "Выберите размер поля";
-    public static final String LABEL_SIZE_VIC = "Выберите длину выигрышной последовательности:";
 
     private GameWindow gameWindow;
     private JRadioButton rbMode1;
@@ -62,8 +57,7 @@ public class StartGameWindow extends JFrame {
 
     private void initGameModeComponents() {
         add(new JLabel("Выберите режим игры:"));
-        rbMode1 = new JRadioButton("Игрок против коипьютера");
-        rbMode1.setSelected(true);
+        rbMode1 = new JRadioButton("Игрок против коипьютера", true);
         rbMode2 = new JRadioButton("Игрок против игрока");
         ButtonGroup bg = new ButtonGroup();
         bg.add(rbMode1);
@@ -76,31 +70,24 @@ public class StartGameWindow extends JFrame {
         add(new JLabel("Выберите размер поля"));
         lblSizeField = new JLabel("Field size: " + sizeField);
         add(lblSizeField);
-        jsSizeFiled = new JSlider(MIN_FIELD_SIZE, MAX_FIELD_SIZE, 3);
+        jsSizeFiled = new JSlider(MIN_FIELD_SIZE, MAX_FIELD_SIZE, MIN_FIELD_SIZE);
         jsSizeFiled.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 sizeField = jsSizeFiled.getValue();
                 lblSizeField.setText("Field size: " + sizeField);
-                if (sizeField < sizeWin) {
-                    sizeWin = sizeField;
-                    jsSizeWin.setValue(sizeWin);
-                }
+                jsSizeWin.setMaximum(sizeField);
             }
         });
         add(jsSizeFiled);
         add(new JLabel("Выберите длину выигрышной последовательности:"));
         lblSizeWin = new JLabel("Win size: " + sizeWin);
         add(lblSizeWin);
-        jsSizeWin = new JSlider(MIN_FIELD_SIZE, MAX_FIELD_SIZE, 3);
+        jsSizeWin = new JSlider(MIN_FIELD_SIZE,MIN_FIELD_SIZE, MIN_FIELD_SIZE);
         jsSizeWin.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 sizeWin = jsSizeWin.getValue();
-                if (sizeField < sizeWin) {
-                    sizeWin = sizeField;
-                 }
-                jsSizeWin.setValue(sizeWin);
                 lblSizeWin.setText("Win size: " + sizeWin);
             }
         });
@@ -109,7 +96,7 @@ public class StartGameWindow extends JFrame {
 
     private void gameStart() {
         int mode = (rbMode1.isSelected()) ? Map.PLAYER_VS_COMP : Map.PLAYER_VS_PLAYER;
-        gameWindow.startGame(sizeField, sizeWin, mode);
+        gameWindow.startGame(sizeField, sizeField, sizeWin, mode);
         setVisible(false);
     }
 

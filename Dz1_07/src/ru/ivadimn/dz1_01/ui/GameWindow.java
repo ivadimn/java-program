@@ -57,9 +57,9 @@ public class GameWindow extends JFrame {
 
     }
 
-    public void startGame(int sizeGame, int sizeWin, int mode) {
-        map.startNewGame(sizeGame, sizeWin, mode);
-        map.updateUI();
+    public void startGame(int sizeY, int sizeX,  int sizeWin, int mode) {
+        map.startNewGame(sizeY, sizeX, sizeWin, mode);
+
     }
 
 }

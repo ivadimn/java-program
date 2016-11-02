@@ -2,8 +2,6 @@ package ru.ivadimn.lesson21.ui;
 
 import javax.swing.*;
 
-
-
 /**
  * Created by vadim on 01.11.16.
  */
@@ -19,6 +17,8 @@ public class GameCircle extends JFrame {
         setLocation(200,  200);
         setSize(800, 600);
         setResizable(false);
+        GameCanvas gameCanvas = new GameCanvas();
+        gameCanvas.setLayout(Border);
         setVisible(true);
     }
 }

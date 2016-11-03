@@ -19,6 +19,14 @@ public class Ball extends Sprite {
         halfWidth = halfHeight * 1f;
     }
 
+    public Ball(int x, int y, GameCanvas gameCanvas) {
+        super(gameCanvas);
+        halfHeight = 20 + (float)(Math.random() * 50f);;
+        halfWidth = halfHeight * 1f;
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
     public void update(float deltaTime) {
         x += vx * deltaTime;

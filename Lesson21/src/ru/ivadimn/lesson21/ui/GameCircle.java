@@ -5,6 +5,7 @@ import ru.ivadimn.lesson21.model.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by vadim on 01.11.16.
@@ -16,7 +17,8 @@ public class GameCircle extends JFrame {
     }
 
     GameCanvas gameCanvas;
-    private final Sprite[] sprites = new Sprite[7];
+    private int countBall = 7;
+    private ArrayList<Sprite> sprites = new ArrayList<>(countBall);
 
 
     public GameCircle() {
@@ -32,8 +34,8 @@ public class GameCircle extends JFrame {
     }
 
     private void initGameObjects() {
-        for (int i = 0; i < sprites.length; i++) {
-            sprites[i] = new Ball(gameCanvas);
+        for (int i = 0; i < countBall; i++) {
+            sprites.add(new Ball(gameCanvas));
         }
     }
 
@@ -43,14 +45,14 @@ public class GameCircle extends JFrame {
     }
 
     private void update(float deltaTime) {
-        for (int i = 0; i < sprites.length; i++) {
-            sprites[i].update(deltaTime);
+        for (int i = 0; i < sprites.size(); i++) {
+            sprites.get(i).update(deltaTime);
         }
     }
 
     private void render(Graphics g) {
-        for (int i = 0; i < sprites.length; i++) {
-            sprites[i].render(g);
+        for (int i = 0; i < sprites.size(); i++) {
+            sprites.get(i).render(g);
         }
     }
 }

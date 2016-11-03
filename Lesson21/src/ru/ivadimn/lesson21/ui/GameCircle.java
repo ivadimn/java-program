@@ -55,4 +55,8 @@ public class GameCircle extends JFrame {
             sprites.get(i).render(g);
         }
     }
+
+    public void addSprite(Sprite sprite) {
+        sprites.add(sprite);
+    }
 }

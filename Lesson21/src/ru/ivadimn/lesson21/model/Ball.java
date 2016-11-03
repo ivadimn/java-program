@@ -19,7 +19,7 @@ public class Ball extends Sprite {
         halfWidth = halfHeight * 1f;
     }
 
-    public Ball(int x, int y, GameCanvas gameCanvas) {
+    public Ball(float x, float y, GameCanvas gameCanvas) {
         super(gameCanvas);
         halfHeight = 20 + (float)(Math.random() * 50f);;
         halfWidth = halfHeight * 1f;

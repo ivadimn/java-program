@@ -1,7 +1,11 @@
 package ru.ivadimn.lesson21.ui;
 
+import ru.ivadimn.lesson21.model.Ball;
+import ru.ivadimn.lesson21.model.Sprite;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Created by vadim on 02.11.16.
@@ -14,6 +18,16 @@ public class GameCanvas  extends JPanel {
     GameCanvas(GameCircle gameCircle) {
         this.gameCircle = gameCircle;
         lastFrameTime = System.nanoTime();
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                float x = e.getX();
+                float y = e.getY();
+                createSprite(x, y);
+            }
+        });
+
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -37,4 +51,10 @@ public class GameCanvas  extends JPanel {
     public int getRight() {return getWidth() - 1;}
     public int getTop() {return 0;}
     public int getBottom() {return getHeight() - 1;}
+
+    private void createSprite(float x, float y) {
+        Sprite sprite = new Ball(x, y, this);
+        gameCircle.addSprite(sprite);
+    }
+
 }

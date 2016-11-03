@@ -21,7 +21,7 @@ public class GameCanvas  extends JPanel {
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 float x = e.getX();
                 float y = e.getY();
                 createSprite(x, y);
@@ -53,8 +53,7 @@ public class GameCanvas  extends JPanel {
     public int getBottom() {return getHeight() - 1;}
 
     private void createSprite(float x, float y) {
-        Sprite sprite = new Ball(x, y, this);
-        gameCircle.addSprite(sprite);
+       gameCircle.addSprite(x, y);
     }
 
 }

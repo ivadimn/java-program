@@ -17,7 +17,7 @@ public class GameCircle extends JFrame {
     }
 
     GameCanvas gameCanvas;
-    private int countBall = 7;
+    private int countBall = 2;
     private ArrayList<Sprite> sprites = new ArrayList<>(countBall);
 
 
@@ -56,7 +56,7 @@ public class GameCircle extends JFrame {
         }
     }
 
-    public void addSprite(Sprite sprite) {
-        sprites.add(sprite);
+    public void addSprite(float x, float y) {
+       sprites.add(new Ball(x, y, gameCanvas));
     }
 }

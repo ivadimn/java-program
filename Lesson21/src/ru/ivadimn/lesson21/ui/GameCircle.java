@@ -16,38 +16,18 @@ public class GameCircle extends GameField {
         new GameCircle();
     }
 
-    GameCanvas gameCanvas;
-    private int countBall = 2;
-    private ArrayList<Sprite> sprites = new ArrayList<>(countBall);
-
-    public GameCircle() {
+    GameCircle() {
+        super();
         setTitle("Кружки");
+        initGameObjects();
     }
+    private int countBall = 2;
 
-    private void initGameObjects() {
+
+    public void initGameObjects() {
         for (int i = 0; i < countBall; i++) {
             sprites.add(new Ball(gameCanvas));
         }
     }
 
-    public void onRepaint(Graphics g, float deltaTime) {
-        update(deltaTime);
-        render(g);
-    }
-
-    private void update(float deltaTime) {
-        for (int i = 0; i < sprites.size(); i++) {
-            sprites.get(i).update(deltaTime);
-        }
-    }
-
-    private void render(Graphics g) {
-        for (int i = 0; i < sprites.size(); i++) {
-            sprites.get(i).render(g);
-        }
-    }
-
-    public void addSprite(float x, float y) {
-       sprites.add(new Ball(x, y, gameCanvas));
-    }
 }

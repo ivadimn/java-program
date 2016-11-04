@@ -1,16 +1,19 @@
 package ru.ivadimn.lesson21.ui;
 
 import ru.ivadimn.lesson21.model.Ball;
+import ru.ivadimn.lesson21.model.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by vadim on 04.11.2016.
  */
-public class GameField extends JFrame  {
+public  class GameField extends JFrame  {
 
     GameCanvas gameCanvas;
+    protected ArrayList<Sprite> sprites = new ArrayList<>();
 
     public GameField () {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,7 +21,6 @@ public class GameField extends JFrame  {
         setResizable(false);
         gameCanvas = new GameCanvas(this);
         add(gameCanvas, BorderLayout.CENTER);
-        initGameObjects();
         setVisible(true);
     }
 
@@ -28,14 +30,26 @@ public class GameField extends JFrame  {
         setLocation(screenSize.width / 4, screenSize.height / 4);
     }
 
-    private void initGameObjects() { }
 
-    public void onRepaint(Graphics g, float deltaTime) { }
+    public void onRepaint(Graphics g, float deltaTime) {
+        update(deltaTime);
+        render(g);
+    }
 
-    private void update(float deltaTime) { }
+    private void update(float deltaTime) {
+        for (int i = 0; i < sprites.size(); i++) {
+            sprites.get(i).update(deltaTime);
+        }
+    }
 
-    private void render(Graphics g) { }
+    private void render(Graphics g) {
+        for (int i = 0; i < sprites.size(); i++) {
+            sprites.get(i).render(g);
+        }
+    }
 
-    public void addSprite(float x, float y) {}
+    public void addSprite(float x, float y) {
+        sprites.add(new Ball(x, y, gameCanvas));
+    }
 
 }

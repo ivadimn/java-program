@@ -24,6 +24,11 @@ public class GameCircle extends JFrame {
     public GameCircle() {
         setTitle("Кружки");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+
+        setSize(orderSet.getScreenWidth(), orderSet.getScreenHeight());
+        setLocation(orderSet.getLocationX(), orderSet.getLocationY());
+        setTitle("Заявка");
         setLocation(100,  100);
         setSize(600, 500);
         setResizable(false);
@@ -31,6 +36,13 @@ public class GameCircle extends JFrame {
         add(gameCanvas, BorderLayout.CENTER);
         initGameObjects();
         setVisible(true);
+    }
+
+    private void setScreenLocation() {
+        Dimension screenSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+
+        setSize(screenSize.width / 2,  screenSize.height / 2);
+        setLocation();
     }
 
     private void initGameObjects() {

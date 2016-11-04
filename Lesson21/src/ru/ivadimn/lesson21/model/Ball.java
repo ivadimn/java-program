@@ -20,11 +20,9 @@ public class Ball extends Sprite {
     }
 
     public Ball(float x, float y, GameCanvas gameCanvas) {
-        super(gameCanvas);
+        super(x, y, gameCanvas);
         halfHeight = 20 + (float)(Math.random() * 50f);;
         halfWidth = halfHeight * 1f;
-        this.x = x;
-        this.y = y;
     }
 
     @Override

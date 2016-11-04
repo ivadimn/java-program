@@ -18,6 +18,12 @@ public class Sprite {
     public Sprite (GameCanvas gameCanvas) {
         this.gameCanvas = gameCanvas;
     }
+    
+    public Sprite(float x, float y, GameCanvas gameCanvas) {
+        this.x = x;
+        this.y = y;
+        this.gameCanvas = gameCanvas;
+    }
 
     public float getLeft() {
         return x - halfWidth;

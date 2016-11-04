@@ -8,9 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by vadim on 01.11.16.
+ * Created by vadim on 04.11.2016.
  */
-public class GameCircle extends GameField {
+public class GameRect extends JFrame {
 
     public static void main(String[] args) {
         new GameCircle();
@@ -20,8 +20,14 @@ public class GameCircle extends GameField {
     private int countBall = 2;
     private ArrayList<Sprite> sprites = new ArrayList<>(countBall);
 
-    public GameCircle() {
-        setTitle("Кружки");
+    public GameRect() {
+        setTitle("Прямоугольники");
+    }
+
+    private void setScreenLocation() {
+        Dimension screenSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+        setSize(screenSize.width / 2,  screenSize.height / 2);
+        setLocation(screenSize.width / 4, screenSize.height / 4);
     }
 
     private void initGameObjects() {
@@ -48,6 +54,6 @@ public class GameCircle extends GameField {
     }
 
     public void addSprite(float x, float y) {
-       sprites.add(new Ball(x, y, gameCanvas));
+        sprites.add(new Ball(x, y, gameCanvas));
     }
 }

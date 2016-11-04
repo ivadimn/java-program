@@ -9,19 +9,20 @@ import java.awt.*;
  */
 public class Ball extends Sprite {
 
-    private float vx = 150 + (float)(Math.random() *200f);
-    private float vy = 150 + (float)(Math.random() *200f);;
-    private Color color = new Color((int) (Math.random() * 255f), (int) (Math.random() * 255f), (int) (Math.random() * 255f));
+
+    private float vx = SPEED + RANDOM.nextFloat() * 200f;
+    private float vy = SPEED + RANDOM.nextFloat() * 200f ;
+    private Color color = new Color(RANDOM.nextInt(255), RANDOM.nextInt(255), RANDOM.nextInt(255));
 
     public Ball(GameCanvas gameCanvas) {
         super(gameCanvas);
-        halfHeight = 20 + (float)(Math.random() * 50f);;
+        halfHeight = HEIGHT + RANDOM.nextFloat() * 50f;
         halfWidth = halfHeight * 1f;
     }
 
     public Ball(float x, float y, GameCanvas gameCanvas) {
         super(x, y, gameCanvas);
-        halfHeight = 20 + (float)(Math.random() * 50f);;
+        halfHeight = HEIGHT + RANDOM.nextFloat() * 50f;
         halfWidth = halfHeight * 1f;
     }
 

@@ -13,10 +13,10 @@ import java.awt.event.*;
 public class GameCanvas  extends JPanel {
 
     private long lastFrameTime;
-    private GameCircle gameCircle;
+    private GameField gameFiled;
 
-    GameCanvas(GameCircle gameCircle) {
-        this.gameCircle = gameCircle;
+    GameCanvas(GameField gameField) {
+        this.gameFiled = gameFiled;
         lastFrameTime = System.nanoTime();
 
         addMouseListener(new MouseAdapter() {
@@ -37,7 +37,7 @@ public class GameCanvas  extends JPanel {
         float deltaTime = (currentTime - lastFrameTime) * 0.000000001f;
         lastFrameTime = currentTime;
 
-        gameCircle.onRepaint(g, deltaTime);
+        gameFiled.onRepaint(g, deltaTime);
         //засыпаем
         try {
             Thread.sleep(17);
@@ -53,7 +53,7 @@ public class GameCanvas  extends JPanel {
     public int getBottom() {return getHeight() - 1;}
 
     private void createSprite(float x, float y) {
-       gameCircle.addSprite(x, y);
+       gameFiled.addSprite(x, y);
     }
 
 }

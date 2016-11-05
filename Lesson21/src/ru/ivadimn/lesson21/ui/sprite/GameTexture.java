@@ -14,7 +14,7 @@ public class GameTexture extends GameField {
 
     GameTexture() {
         super();
-        setTitle("Дуги");
+        setTitle("Фигуры");
         initGameObjects();
     }
     private int countBall = 3;

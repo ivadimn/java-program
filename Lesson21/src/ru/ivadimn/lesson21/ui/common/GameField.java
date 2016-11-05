@@ -1,7 +1,8 @@
-package ru.ivadimn.lesson21.ui;
+package ru.ivadimn.lesson21.ui.common;
 
 import ru.ivadimn.lesson21.model.Ball;
 import ru.ivadimn.lesson21.model.Sprite;
+import ru.ivadimn.lesson21.ui.common.GameCanvas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 /**
  * Created by vadim on 04.11.2016.
  */
-public  class GameField extends JFrame  {
+public abstract class GameField extends JFrame  {
 
-    GameCanvas gameCanvas;
+    protected GameCanvas gameCanvas;
     protected ArrayList<Sprite> sprites = new ArrayList<>();
 
     public GameField () {
@@ -48,8 +49,6 @@ public  class GameField extends JFrame  {
         }
     }
 
-    public void addSprite(float x, float y) {
-        sprites.add(new Ball(x, y, gameCanvas));
-    }
+    public abstract void addSprite(float x, float y);
 
 }

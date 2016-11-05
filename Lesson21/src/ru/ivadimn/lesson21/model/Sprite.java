@@ -1,6 +1,6 @@
 package ru.ivadimn.lesson21.model;
 
-import ru.ivadimn.lesson21.ui.GameCanvas;
+import ru.ivadimn.lesson21.ui.common.GameCanvas;
 
 import java.awt.*;
 import java.util.Random;
@@ -11,8 +11,11 @@ import java.util.Random;
 public class Sprite {
 
     public static final float SPEED = 150f;
+    public static final float SPEED_DELTA = 200f;
     public static final float HEIGHT = 20f;
     public static final float WIDTH = 20f;
+    public static final float DELTA = 20f;
+
     public static final Random RANDOM = new Random();
 
     protected GameCanvas gameCanvas;

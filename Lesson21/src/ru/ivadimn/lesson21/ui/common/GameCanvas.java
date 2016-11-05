@@ -1,7 +1,4 @@
-package ru.ivadimn.lesson21.ui;
-
-import ru.ivadimn.lesson21.model.Ball;
-import ru.ivadimn.lesson21.model.Sprite;
+package ru.ivadimn.lesson21.ui.common;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +10,10 @@ import java.awt.event.*;
 public class GameCanvas  extends JPanel {
 
     private long lastFrameTime;
-    private GameField gameFiled;
+    private GameField gameField;
 
     GameCanvas(GameField gameField) {
-        this.gameFiled = gameFiled;
+        this.gameField = gameField;
         lastFrameTime = System.nanoTime();
 
         addMouseListener(new MouseAdapter() {
@@ -37,7 +34,7 @@ public class GameCanvas  extends JPanel {
         float deltaTime = (currentTime - lastFrameTime) * 0.000000001f;
         lastFrameTime = currentTime;
 
-        gameFiled.onRepaint(g, deltaTime);
+        gameField.onRepaint(g, deltaTime);
         //засыпаем
         try {
             Thread.sleep(17);
@@ -53,7 +50,7 @@ public class GameCanvas  extends JPanel {
     public int getBottom() {return getHeight() - 1;}
 
     private void createSprite(float x, float y) {
-       gameFiled.addSprite(x, y);
+       gameField.addSprite(x, y);
     }
 
 }

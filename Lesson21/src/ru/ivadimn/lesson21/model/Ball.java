@@ -1,6 +1,6 @@
 package ru.ivadimn.lesson21.model;
 
-import ru.ivadimn.lesson21.ui.GameCanvas;
+import ru.ivadimn.lesson21.ui.common.GameCanvas;
 
 import java.awt.*;
 
@@ -10,19 +10,19 @@ import java.awt.*;
 public class Ball extends Sprite {
 
 
-    private float vx = SPEED + RANDOM.nextFloat() * 200f;
-    private float vy = SPEED + RANDOM.nextFloat() * 200f ;
+    private float vx = SPEED + RANDOM.nextFloat() * SPEED_DELTA;
+    private float vy = SPEED + RANDOM.nextFloat() * SPEED_DELTA ;
     private Color color = new Color(RANDOM.nextInt(255), RANDOM.nextInt(255), RANDOM.nextInt(255));
 
     public Ball(GameCanvas gameCanvas) {
         super(gameCanvas);
-        halfHeight = HEIGHT + RANDOM.nextFloat() * 50f;
+        halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = halfHeight * 1f;
     }
 
     public Ball(float x, float y, GameCanvas gameCanvas) {
         super(x, y, gameCanvas);
-        halfHeight = HEIGHT + RANDOM.nextFloat() * 50f;
+        halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = halfHeight * 1f;
     }
 

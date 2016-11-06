@@ -1,8 +1,8 @@
 package ru.ivadimn.lesson21.ui.common;
 
-import ru.ivadimn.lesson21.model.Ball;
-import ru.ivadimn.lesson21.model.Sprite;
-import ru.ivadimn.lesson21.ui.common.GameCanvas;
+import ru.ivadimn.lesson21.common_game_classes.CanvasPaintListener;
+import ru.ivadimn.lesson21.common_game_classes.GameCanvas;
+import ru.ivadimn.lesson21.common_game_classes.GameObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,17 +11,15 @@ import java.util.ArrayList;
 /**
  * Created by vadim on 04.11.2016.
  */
-public abstract class GameField extends JFrame  {
+public abstract class GameField extends JFrame implements CanvasPaintListener {
 
-    protected GameCanvas gameCanvas;
     protected ArrayList<GameObject> sprites = new ArrayList<>();
 
     public GameField () {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setScreenLocation();
         setResizable(false);
-        gameCanvas = new GameCanvas(this);
-        add(gameCanvas, BorderLayout.CENTER);
+        add(new GameCanvas(this), BorderLayout.CENTER);
         setVisible(true);
     }
 
@@ -32,18 +30,18 @@ public abstract class GameField extends JFrame  {
     }
 
 
-    public void onRepaint(Graphics g, float deltaTime) {
-        update(deltaTime);
-        render(g);
+    public void onRepaint(GameCanvas gameCanvas, Graphics g, float deltaTime) {
+        update(gameCanvas, deltaTime);
+        render(gameCanvas, g);
     }
 
-    private void update(float deltaTime) {
+    private void update(GameCanvas gameCanvas, float deltaTime) {
         for (int i = 0; i < sprites.size(); i++) {
             sprites.get(i).update(gameCanvas, deltaTime);
         }
     }
 
-    private void render(Graphics g) {
+    private void render(GameCanvas gameCanvas, Graphics g) {
         for (int i = 0; i < sprites.size(); i++) {
             sprites.get(i).render(gameCanvas, g);
         }

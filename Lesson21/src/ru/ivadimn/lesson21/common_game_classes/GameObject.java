@@ -1,4 +1,4 @@
-package ru.ivadimn.lesson21.ui.common;
+package ru.ivadimn.lesson21.common_game_classes;
 
 import java.awt.*;
 

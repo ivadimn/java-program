@@ -1,15 +1,14 @@
 package ru.ivadimn.lesson21.model;
 
-import ru.ivadimn.lesson21.ui.common.GameCanvas;
-import ru.ivadimn.lesson21.ui.common.GameObject;
+import ru.ivadimn.lesson21.common_game_classes.Sprite;
+import ru.ivadimn.lesson21.common_game_classes.GameCanvas;
 
 import java.awt.*;
-import java.awt.geom.*;
 
 /**
  * Created by vadim on 05.11.2016.
  */
-public class Texture extends Sprite implements GameObject {
+public class Texture extends Sprite {
 
     private int numPoints = 10;
     private float vx = SPEED + RANDOM.nextFloat() * SPEED_DELTA;

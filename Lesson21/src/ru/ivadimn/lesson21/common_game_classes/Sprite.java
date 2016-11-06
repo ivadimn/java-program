@@ -1,6 +1,4 @@
-package ru.ivadimn.lesson21.model;
-
-import ru.ivadimn.lesson21.ui.common.GameCanvas;
+package ru.ivadimn.lesson21.common_game_classes;
 
 import java.awt.*;
 import java.util.Random;
@@ -8,7 +6,7 @@ import java.util.Random;
 /**
  * Created by vadim on 02.11.2016.
  */
-public abstract class Sprite {
+public abstract class Sprite implements GameObject {
 
     public static final float SPEED = 150f;
     public static final float SPEED_DELTA = 200f;
@@ -58,6 +56,7 @@ public abstract class Sprite {
         return 2f * halfHeight;
     }
 
-
+    public abstract void update(GameCanvas gameCanvas, float deltaTime);
+    public abstract void render(GameCanvas gameCanvas, Graphics g);
 
 }

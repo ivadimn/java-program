@@ -1,4 +1,6 @@
-package ru.ivadimn.lesson21.ui.common;
+package ru.ivadimn.lesson21.common_game_classes;
+
+import ru.ivadimn.lesson21.ui.common.GameField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +12,10 @@ import java.awt.event.*;
 public class GameCanvas  extends JPanel {
 
     private long lastFrameTime;
-    private GameField gameField;
+    private CanvasPaintListener listener;
 
-    GameCanvas(GameField gameField) {
-        this.gameField = gameField;
+    public GameCanvas(CanvasPaintListener listener) {
+        this.listener = listener;
         lastFrameTime = System.nanoTime();
 
         addMouseListener(new MouseAdapter() {
@@ -34,7 +36,7 @@ public class GameCanvas  extends JPanel {
         float deltaTime = (currentTime - lastFrameTime) * 0.000000001f;
         lastFrameTime = currentTime;
 
-        gameField.onRepaint(g, deltaTime);
+        listener.onRepaint(this, g, deltaTime);
         //засыпаем
         try {
             Thread.sleep(17);
@@ -50,7 +52,7 @@ public class GameCanvas  extends JPanel {
     public int getBottom() {return getHeight() - 1;}
 
     private void createSprite(float x, float y) {
-       gameField.addSprite(x, y);
+       listener.addSprite(x, y);
     }
 
 }

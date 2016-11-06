@@ -1,4 +1,4 @@
-package ru.ivadimn.lesson21.ui.sprite;
+package ru.ivadimn.lesson21.model;
 
 import ru.ivadimn.lesson21.common_game_classes.GameCanvas;
 import ru.ivadimn.lesson21.common_game_classes.GameObject;

@@ -1,7 +1,8 @@
-package ru.ivadimn.lesson21.ui.sprite;
+package ru.ivadimn.lesson21.games;
 
+import ru.ivadimn.lesson21.model.Background;
 import ru.ivadimn.lesson21.model.Ball;
-import ru.ivadimn.lesson21.ui.common.GameField;
+import ru.ivadimn.lesson21.common_game_classes.GameField;
 
 /**
  * Created by vadim on 01.11.16.

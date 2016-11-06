@@ -6,32 +6,32 @@ package ru.ivadimn.lesson22.model;
 public class Matrix  {
 
     public final int SIZE = 4;
-    private String buffer;
-    private String[][] matrix;
 
+    private  String[][] matrix = new String[SIZE][SIZE];
     private int[][] intMatrix = new int[SIZE][SIZE];
-    
-    
-    public Matrix(String buffer) {
-        this.buffer = buffer;
-        createMatrix();
+
+    public Matrix(String buffer) throws RuntimeException {
+        createMatrix(buffer);
     }
     
-    private void createMatrix() {
-        String[] m = buffer.split("\n");
-        if (m.length != SIZE) {
-            System.out.println("Вне размерности");
+    private void createMatrix(String buffer) throws RuntimeException {
+        String[] ms = buffer.split("\n");
+        if (ms.length != SIZE) {
+            throw new RuntimeException("Количество строк матрицы = " + ms.length + " (а должно быть 4)");
         }
-        matrix = new String[SIZE][];
+
         for (int i = 0; i < SIZE; i++) {
-            matrix[i] = m[i].split(" ");
-            if (matrix[i].length != 4) {
-                System.out.println("Вне разменрности");
+            String[] mc = ms[i].split(" ");
+            if (mc.length != SIZE) {
+                throw new RuntimeException("В " + i + " строке матрицы " + mc.length + " элементов (а должно быть 4)");
+            }
+            for (int j = 0; j < SIZE; j++) {
+                matrix[i][j] = mc[j];
             }
         }
     }
 
-    public int  getValue() throws NumberFormatException{
+    public int  getValue() throws RuntimeException {
         int summa = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -40,11 +40,12 @@ public class Matrix  {
                     summa += intMatrix[i][j];
                 }
                 catch(NumberFormatException e) {
-                    throw e;
+                    throw new RuntimeException("В " + i + " строке и " + j +
+                            " столбце вместо числа - '" + matrix[i][j] + "'");
                 }
             }
         }
-        return 0;
+        return summa / 2;
     }
 
     @Override

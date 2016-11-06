@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public abstract class GameField extends JFrame  {
 
     protected GameCanvas gameCanvas;
-    protected ArrayList<Sprite> sprites = new ArrayList<>();
+    protected ArrayList<GameObject> sprites = new ArrayList<>();
 
     public GameField () {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,13 +39,13 @@ public abstract class GameField extends JFrame  {
 
     private void update(float deltaTime) {
         for (int i = 0; i < sprites.size(); i++) {
-            sprites.get(i).update(deltaTime);
+            sprites.get(i).update(gameCanvas, deltaTime);
         }
     }
 
     private void render(Graphics g) {
         for (int i = 0; i < sprites.size(); i++) {
-            sprites.get(i).render(g);
+            sprites.get(i).render(gameCanvas, g);
         }
     }
 

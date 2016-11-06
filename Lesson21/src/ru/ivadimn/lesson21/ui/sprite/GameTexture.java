@@ -21,13 +21,14 @@ public class GameTexture extends GameField {
 
 
     public void initGameObjects() {
+        sprites.add(new Background());
         for (int i = 0; i < countBall; i++) {
-            sprites.add(new Texture(gameCanvas));
+            sprites.add(new Texture());
         }
     }
 
     @Override
     public void addSprite(float x, float y) {
-        sprites.add(new Texture(x, y, gameCanvas));
+        sprites.add(new Texture(x, y));
     }
 }

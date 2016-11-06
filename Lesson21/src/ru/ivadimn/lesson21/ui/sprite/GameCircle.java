@@ -21,13 +21,14 @@ public class GameCircle extends GameField {
 
 
     public void initGameObjects() {
+        sprites.add(new Background());
         for (int i = 0; i < countBall; i++) {
-            sprites.add(new Ball(gameCanvas));
+            sprites.add(new Ball());
         }
     }
 
     public void addSprite(float x, float y) {
-        sprites.add(new Ball(x, y, gameCanvas));
+        sprites.add(new Ball(x, y));
     }
 
 }

@@ -1,6 +1,7 @@
 package ru.ivadimn.lesson21.model;
 
 import ru.ivadimn.lesson21.ui.common.GameCanvas;
+import ru.ivadimn.lesson21.ui.common.GameObject;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -8,7 +9,7 @@ import java.awt.geom.*;
 /**
  * Created by vadim on 05.11.2016.
  */
-public class Texture extends Sprite {
+public class Texture extends Sprite implements GameObject {
 
     private int numPoints = 10;
     private float vx = SPEED + RANDOM.nextFloat() * SPEED_DELTA;
@@ -19,15 +20,14 @@ public class Texture extends Sprite {
     int[] xpoints = new int[numPoints];
     int[] ypoints = new int[numPoints];
 
-    public Texture(GameCanvas gameCanvas) {
-        super(gameCanvas);
+    public Texture() {
         halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = WIDTH  + RANDOM.nextFloat() * DELTA;
-
     }
 
-    public Texture(float x, float y, GameCanvas gameCanvas) {
-        super(x, y, gameCanvas);
+    public Texture(float x, float y) {
+        this.x = x;
+        this.y = y;
         halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = WIDTH  + RANDOM.nextFloat() * DELTA;
 
@@ -38,7 +38,7 @@ public class Texture extends Sprite {
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(GameCanvas gameCanvas, float deltaTime) {
         x += vx * deltaTime;
         y += vy * deltaTime;
         if (getLeft() < gameCanvas.getLeft()) {
@@ -95,17 +95,13 @@ public class Texture extends Sprite {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(GameCanvas gameCanvas, Graphics g) {
         g.setColor(color1);
         g.fill3DRect((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight(), false);
         g.setColor(color2);
         g.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
         g.setColor(color3);
         g.fillPolygon(xpoints, ypoints, numPoints);
-
-        //g.setColor(color1);
-        //g.drawArc((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight(), startAngle, extentAngle);
-
 
     }
 }

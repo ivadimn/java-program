@@ -1,33 +1,34 @@
 package ru.ivadimn.lesson21.model;
 
 import ru.ivadimn.lesson21.ui.common.GameCanvas;
+import ru.ivadimn.lesson21.ui.common.GameObject;
 
 import java.awt.*;
 
 /**
  * Created by vadim on 02.11.2016.
  */
-public class Ball extends Sprite {
+public class Ball extends Sprite implements GameObject {
 
 
     private float vx = SPEED + RANDOM.nextFloat() * SPEED_DELTA;
     private float vy = SPEED + RANDOM.nextFloat() * SPEED_DELTA ;
     private Color color = new Color(RANDOM.nextInt(255), RANDOM.nextInt(255), RANDOM.nextInt(255));
 
-    public Ball(GameCanvas gameCanvas) {
-        super(gameCanvas);
+    public Ball() {
         halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = halfHeight * 1f;
     }
 
-    public Ball(float x, float y, GameCanvas gameCanvas) {
-        super(x, y, gameCanvas);
+    public Ball(float x, float y) {
+        this.x = x;
+        this.y = y;
         halfHeight = HEIGHT + RANDOM.nextFloat() * DELTA;
         halfWidth = halfHeight * 1f;
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(GameCanvas gameCanvas, float deltaTime) {
         x += vx * deltaTime;
         y += vy * deltaTime;
         if (getLeft() < gameCanvas.getLeft()) {
@@ -50,7 +51,7 @@ public class Ball extends Sprite {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(GameCanvas gameCanvas, Graphics g) {
         g.setColor(color);
         g.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }

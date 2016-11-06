@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by vadim on 02.11.2016.
  */
-public class Sprite {
+public abstract class Sprite {
 
     public static final float SPEED = 150f;
     public static final float SPEED_DELTA = 200f;
@@ -18,21 +18,11 @@ public class Sprite {
 
     public static final Random RANDOM = new Random();
 
-    protected GameCanvas gameCanvas;
     protected float x;
     protected float y;
     protected float halfWidth;
     protected float halfHeight;
 
-    public Sprite (GameCanvas gameCanvas) {
-        this.gameCanvas = gameCanvas;
-    }
-    
-    public Sprite(float x, float y, GameCanvas gameCanvas) {
-        this.x = x;
-        this.y = y;
-        this.gameCanvas = gameCanvas;
-    }
 
     public float getLeft() {
         return x - halfWidth;
@@ -67,8 +57,7 @@ public class Sprite {
     public float getHeight() {
         return 2f * halfHeight;
     }
-    public void update(float deltaTime) {}
 
-    public void render(Graphics g) {}
+
 
 }

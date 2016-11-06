@@ -21,12 +21,13 @@ public class GameRect extends GameField {
     }
 
     private void initGameObjects() {
+        sprites.add(new Background());
         for (int i = 0; i < countRect; i++) {
-            sprites.add(new Rect(gameCanvas));
+            sprites.add(new Rect());
         }
     }
 
     public void addSprite(float x, float y) {
-        sprites.add(new Rect(x, y, gameCanvas));
+        sprites.add(new Rect(x, y));
     }
 }

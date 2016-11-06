@@ -1,8 +1,7 @@
 package ru.ivadimn.lesson21.ui.sprite;
 
-import ru.ivadimn.lesson21.model.Sprite;
-import ru.ivadimn.lesson21.ui.common.GameCanvas;
-import ru.ivadimn.lesson21.ui.common.GameObject;
+import ru.ivadimn.lesson21.common_game_classes.GameCanvas;
+import ru.ivadimn.lesson21.common_game_classes.GameObject;
 
 import java.awt.*;
 

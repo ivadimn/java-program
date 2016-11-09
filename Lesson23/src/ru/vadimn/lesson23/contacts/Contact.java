@@ -31,24 +31,16 @@ public class Contact  implements Comparable<String>{
         return name;
     }
 
-    public String getPhones() {
-        StringBuilder p = new StringBuilder("\n");
-        for (int i = 0; i < phones.size(); i++) {
-            p.append(phones.get(i) + "\n");
-        }
-        return p.toString();
+    public List<String> getPhones() {
+        return phones;
     }
-
-    public String getEmails() {
-        StringBuilder e = new StringBuilder("\n");
-        for (int i = 0; i < phones.size(); i++) {
-            e.append(emails.get(i) + "\n");
-        }
-        return e.toString();
+    public List<String> getEmails() {
+        return emails;
     }
 
     @Override
     public int compareTo(String o) {
         return name.compareTo(o);
     }
+
 }

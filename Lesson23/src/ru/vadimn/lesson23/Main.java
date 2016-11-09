@@ -1,5 +1,7 @@
 package ru.vadimn.lesson23;
 
+import ru.vadimn.lesson23.contacts.Contact;
+import ru.vadimn.lesson23.contacts.ContactsList;
 import ru.vadimn.lesson23.data.Data;
 import sun.reflect.generics.tree.Tree;
 
@@ -10,13 +12,29 @@ import java.util.*;
  */
 public class Main {
 
+    public static ContactsList contactsList = new ContactsList();
+
     public static void main(String[] args) {
 
+        //первая часть задания
+
         Map<String, Integer> table = countWords();
+        //печать в столбик
+        System.out.println("\n-------------------Количество вхождений слов:");
         printMap(table);
-        System.out.println("----------------------------------------------");
+        System.out.println("\n-------------------Список слов без повторений:");
         System.out.println(listWords());
-    }
+
+        //вторая часть задания
+        createContactList();
+        System.out.println("---------------------------------------------------------");
+        printEmailList("kjhkhkhkhk");
+        printPhoneList("фамилия01");
+        printEmailList("jlksdjlsdkjfl");
+        printEmailList("фамилия04");
+        printPhoneList("фамилия08");
+        printEmailList("фамилия08");
+     }
 
     /**
      * подсчёт количества вхождений каждого слова
@@ -58,4 +76,42 @@ public class Main {
             System.out.println(key + " = " + map.get(key));
         }
     }
+
+    //вторая часть задания
+    //создать список контактов
+    public static void createContactList() {
+        String[][] contacts = Data.contacts;
+        for (int i = 0; i < contacts.length; i++) {
+            contactsList.addContact(new Contact(contacts[i][0], contacts[i][1], contacts[i][2]));
+        }
+    }
+
+    //напечатать список телефонов по фамилии
+    public static void printPhoneList(String name) {
+        List<String> phones = contactsList.getPhones(name);
+        if(phones == null) {
+            System.out.println("\nЗаписи с фамилией: '" + name + "' нет в списке контактов");
+            return;
+        }
+        System.out.println("\nФамилия: " + name);
+        System.out.println("Список телефонов:");
+        for (int i = 0; i < phones.size(); i++) {
+            System.out.println(phones.get(i));
+        }
+    }
+
+    //напечатать список emails по фамилии
+    public static void printEmailList(String name) {
+        List<String> emails = contactsList.getEmails(name);
+        if(emails == null) {
+            System.out.println("\nЗаписи с фамилией: '" + name + "' нет в списке контактов");
+            return;
+        }
+        System.out.println("\nФамилия: " + name);
+        System.out.println("Список emailов:");
+        for (int i = 0; i < emails.size(); i++) {
+            System.out.println(emails.get(i));
+        }
+    }
+
 }

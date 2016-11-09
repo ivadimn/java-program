@@ -1,56 +1,54 @@
 package ru.vadimn.lesson23.contacts;
 
+import javax.lang.model.element.NestingKind;
+import java.util.*;
+
 /**
  * Created by vadim on 08.11.16.
  */
-public class Contact  {
+public class Contact  implements Comparable<String>{
 
     private String name;
-    private String phone;
-    private String email;
+    private List<String> phones = new ArrayList<>();
+    private List<String> emails = new ArrayList<>();
+
+    public Contact(String name) {
+        this.name = name;
+    }
+    public Contact(String name, String phone, String email) {
+        this.name = name;
+        phones.add(phone);
+        emails.add(email);
+    }
+    public void addPhone(String phone) {
+        phones.add(phone);
+    }
+    public void addEmail(String email) {
+        emails.add(email);
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPhones() {
+        StringBuilder p = new StringBuilder("\n");
+        for (int i = 0; i < phones.size(); i++) {
+            p.append(phones.get(i) + "\n");
+        }
+        return p.toString();
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmails() {
+        StringBuilder e = new StringBuilder("\n");
+        for (int i = 0; i < phones.size(); i++) {
+            e.append(emails.get(i) + "\n");
+        }
+        return e.toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Contact contact = (Contact) o;
-
-        if (!name.equals(contact.name)) return false;
-        if (!phone.equals(contact.phone)) return false;
-        return email.equals(contact.email);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + phone.hashCode();
-        result = 31 * result + email.hashCode();
-        return result;
+    public int compareTo(String o) {
+        return name.compareTo(o);
     }
 }

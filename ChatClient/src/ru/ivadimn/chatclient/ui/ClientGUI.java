@@ -1,18 +1,16 @@
 package ru.ivadimn.chatclient.ui;
 
+import ru.ivadimn.chatclient.common.Utils;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by vadim on 11.11.16.
  */
-public class ClientGUI extends JFrame {
-
-    private final String CHAT_CLIENT = "Chat Client";
-    private final String BTN_LOGIN_CAPTION = "Login";
-    private final String BTN_SEND_CAPTION = "Send";
-
-
+public class ClientGUI extends JFrame implements ActionListener{
     private final JPanel gridPanel = new JPanel(new GridLayout(2, 3));
     private final JPanel inputPanel = new JPanel(new BorderLayout());
     //поля ввода
@@ -21,25 +19,28 @@ public class ClientGUI extends JFrame {
     private final JTextField txtLogin = new JTextField();
     private final JTextField txtPassword = new JTextField();
     private final JTextField txtInput = new JTextField();
-    private final JTextArea areaInfo = new JTextArea();
+    private final JTextArea log = new JTextArea();
 
-    private final JButton btnLogin = new JButton(BTN_LOGIN_CAPTION);
-    private final JButton btnSend = new JButton(BTN_SEND_CAPTION);
+    private final JButton btnLogin = new JButton(Utils.BTN_LOGIN_CAPTION);
+    private final JButton btnSend = new JButton(Utils.BTN_SEND_CAPTION);
 
     public ClientGUI() {
-        setTitle(CHAT_CLIENT);
+        setTitle(Utils.CHAT_CLIENT);
         setPosition();
         initGridPanel();
-        add(new JScrollPane(areaInfo), BorderLayout.CENTER);
+        add(new JScrollPane(log), BorderLayout.CENTER);
         initInputPanel();
+
         setVisible(true);
     }
     //задать позицию и размеры окна
     private void setPosition() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
-        setBounds((int) screenSize.getWidth() / 4, (int)screenSize.getHeight() /4,
-                    (int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
+        setSize((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
+        setLocationRelativeTo(null);
+        //setBounds((int) screenSize.getWidth() / 4, (int)screenSize.getHeight() / 4,
+        //            (int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
     }
 
     private void initGridPanel() {
@@ -55,7 +56,19 @@ public class ClientGUI extends JFrame {
     private void initInputPanel() {
         inputPanel.add(txtInput, BorderLayout.CENTER);
         inputPanel.add(btnSend, BorderLayout.EAST);
+        txtInput.addActionListener(this);
+        btnSend.addActionListener(this);
         add(inputPanel, BorderLayout.SOUTH);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source =  e.getSource();
+        if ((source == btnSend || source == txtInput)) {
+            String message = txtInput.getText();
+            if (message.length() > 0)
+                log.append(message + "\n");
+        }
+
+    }
 }

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by vadim on 11.11.16.
  */
-public class ClientGUI extends JFrame implements ActionListener{
+public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
     private final JPanel gridPanel = new JPanel(new GridLayout(2, 3));
     private final JPanel inputPanel = new JPanel(new BorderLayout());
     //поля ввода
@@ -39,8 +39,6 @@ public class ClientGUI extends JFrame implements ActionListener{
         Dimension screenSize = toolkit.getScreenSize();
         setSize((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
         setLocationRelativeTo(null);
-        //setBounds((int) screenSize.getWidth() / 4, (int)screenSize.getHeight() / 4,
-        //            (int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
     }
 
     private void initGridPanel() {
@@ -60,15 +58,33 @@ public class ClientGUI extends JFrame implements ActionListener{
         btnSend.addActionListener(this);
         add(inputPanel, BorderLayout.SOUTH);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source =  e.getSource();
         if ((source == btnSend || source == txtInput)) {
             String message = txtInput.getText();
-            if (message.length() > 0)
+            if (message.length() > 0) {
                 log.append(message + "\n");
+                txtInput.setText("");
+                Utils.writeLog(message);
+            }
         }
-
+    }
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        e.printStackTrace();
+        StackTraceElement[] stackTraceElements = e.getStackTrace();
+        String msg;
+        if (stackTraceElements.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < stackTraceElements.length; i++) {
+                sb.append(stackTraceElements[i].toString() + "\n");
+            }
+            msg = sb.toString();
+        }
+        else {
+            msg = "Сообщений нет";
+        }
+        JOptionPane.showMessageDialog(null, msg, "Exception : ", JOptionPane.ERROR_MESSAGE);
     }
 }

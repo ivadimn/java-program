@@ -26,6 +26,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     public ClientGUI() {
         setTitle(Utils.CHAT_CLIENT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPosition();
         initGridPanel();
         add(new JScrollPane(log), BorderLayout.CENTER);
@@ -42,7 +43,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     }
 
     private void initGridPanel() {
-        txtAddress.setToolTipText("IP - адрес сервера");
+        txtAddress.setToolTipText(Utils.ADDRESS_TOOLTIP);
         gridPanel.add(txtAddress);
         gridPanel.add(txtPort);
         gridPanel.add(new JPanel());

@@ -11,8 +11,9 @@ import java.util.Scanner;
  * Created by vadim on 16.11.16.
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
-        try (Socket s = new Socket("localhost", 8189)) {
+    public static void main(String[] args) {
+        try  {
+            Socket s = new Socket("localhost", 8189);
             InputStream inStream = s.getInputStream();
             OutputStream outStream = s.getOutputStream();
             PrintWriter out= new PrintWriter(outStream);
@@ -27,7 +28,12 @@ public class Main {
                     String line = in.nextLine();
                     System.out.println(line);
                 }
+                else
+                    System.out.println("Поток пустой");
             //}
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

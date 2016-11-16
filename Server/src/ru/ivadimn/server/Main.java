@@ -15,15 +15,15 @@ public class Main {
     public static void main(String[] args) {
         ServerSocket server = null;
         Socket incoming = null;
-        Scanner in;
+        Scanner in = null;
+        PrintWriter out = null;
         try {
-
                 server = new ServerSocket(8189);
                 incoming = server.accept();
                 InputStream inStream = incoming.getInputStream();
                 OutputStream outStream = incoming.getOutputStream();
                 in = new Scanner(inStream);
-                PrintWriter out = new PrintWriter(outStream);
+                out = new PrintWriter(outStream);
                 out.println("Hello! Enter BYE to exit");
                 boolean done = false;
                 while (!done && in.hasNextLine()) {
@@ -37,6 +37,13 @@ public class Main {
             catch (IOException e) {
                 e.printStackTrace();
             }
+            finally {
+            try {
+                incoming.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

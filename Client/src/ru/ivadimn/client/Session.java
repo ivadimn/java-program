@@ -18,6 +18,7 @@ public class Session  implements Runnable{
     Socket client;
     private InputStream inStream;
     private OutputStream outStream;
+    Scanner in = null;
     PrintWriter out;
 
     public Session(String host, int port) {
@@ -42,10 +43,9 @@ public class Session  implements Runnable{
     @Override
     public void run() {
         boolean done = false;
-        Scanner in = null;
         Scanner console = new Scanner(System.in);
         System.out.println("вошли в run");
-            try {
+           try {
                 in = new Scanner(inStream);
                 while(!done && in.hasNext()) {
                     String line = in.nextLine();
@@ -61,15 +61,14 @@ public class Session  implements Runnable{
                     else
                         done = true;
                 }
-            }
-
-            finally {
-                in.close();
-                close();
-            }
+           }
+           finally {
+              close();
+           }
    }
 
     private void close() {
+        in.close();
         out.close();
         try {
             client.close();

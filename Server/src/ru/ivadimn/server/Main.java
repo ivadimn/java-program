@@ -12,11 +12,14 @@ import java.util.Scanner;
  * Created by vadim on 16.11.16.
  */
 public class Main {
+
+    public static PrintWriter out = null;
+
     public static void main(String[] args) {
         ServerSocket server = null;
         Socket incoming = null;
         Scanner in = null;
-        PrintWriter out = null;
+
         try {
                 server = new ServerSocket(8189);
                 incoming = server.accept();
@@ -24,11 +27,12 @@ public class Main {
                 OutputStream outStream = incoming.getOutputStream();
                 in = new Scanner(inStream);
                 out = new PrintWriter(outStream);
-                out.println("Hello! Enter BYE to exit");
+                send("Hello! Enter BYE to exit");
                 boolean done = false;
-                while (!done && in.hasNextLine()) {
+                while (!done && in.hasNext()) {
                     String line = in.nextLine();
-                    out.println("Echo: " + line);
+                    System.out.println(line);
+                    send("Echo: " + line);
                     if (line.trim().equals("BYE"))
                         done = true;
                 }
@@ -45,5 +49,9 @@ public class Main {
             }
         }
 
+    }
+    public static void send(String msg) {
+        out.println(msg);
+        out.flush();
     }
 }

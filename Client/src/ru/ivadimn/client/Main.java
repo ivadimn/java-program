@@ -12,28 +12,12 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        try  {
-            Socket s = new Socket("localhost", 8189);
-            InputStream inStream = s.getInputStream();
-            OutputStream outStream = s.getOutputStream();
-            PrintWriter out= new PrintWriter(outStream);
-            Scanner in  = new Scanner(inStream);
-            //Scanner console = new Scanner(System.in);
-            //String input;
-            //while((input = console.nextLine()) != "exit") {
-                //System.out.println(input);
-                //out.println(input);
-                if (in.hasNextLine()) {
+        Scanner console = new Scanner(System.in);
+        String input;
+        Session s = new Session("localhost", 8189);
+        s.connect();
+        Thread t = new Thread(s);
+        t.start();
 
-                    String line = in.nextLine();
-                    System.out.println(line);
-                }
-                else
-                    System.out.println("Поток пустой");
-            //}
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

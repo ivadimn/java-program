@@ -51,9 +51,10 @@ public class Session  implements Runnable{
                     String line = in.nextLine();
                     System.out.println(line);
                     if (line.equalsIgnoreCase("exit")) {
-                        done = true;
+                        break;
                     }
                     System.out.println("&>");
+                    //читаем с консоли
                     line = console.nextLine();
                     if (!line.equalsIgnoreCase("exit")) {
                         send(line);
@@ -76,7 +77,6 @@ public class Session  implements Runnable{
             e.printStackTrace();
         }
     }
-
     public void send(String msg) {
         out.println(msg);
         out.flush();

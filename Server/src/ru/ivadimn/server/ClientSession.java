@@ -27,7 +27,6 @@ public class ClientSession implements Runnable {
             while (!done && in.hasNext()) {
                 String line = in.nextLine();
                 System.out.println(line);
-                send("Echo: " + line);
                 if (line.trim().equals("exit"))
                     done = true;
             }

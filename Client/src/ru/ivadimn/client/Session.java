@@ -46,14 +46,13 @@ public class Session  implements Runnable{
         boolean done = false;
         String line;
         String serverLine;
-        byte[] data = new byte[256];
-        //Scanner console = new Scanner(System.in);
         in = new Scanner(inStream);
         while(!done && in.hasNext()) {
             serverLine = in.nextLine();
             System.out.println(serverLine);
             if (serverLine.equalsIgnoreCase("exit")) {
-                break;
+                System.out.println("Получили exit");
+                done = true;
             }
            /* System.out.print("&>  ");
             //читаем с консоли
@@ -65,7 +64,7 @@ public class Session  implements Runnable{
         }
         close();
    }
-   private void close() {
+   public void close() {
         in.close();
         out.close();
         try {
@@ -73,6 +72,7 @@ public class Session  implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+       System.out.println("закрыли сессию");
     }
     public void send(String msg) {
         out.println(msg);

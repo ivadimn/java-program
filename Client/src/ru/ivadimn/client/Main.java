@@ -15,17 +15,21 @@ public class Main {
         Scanner console = new Scanner(System.in);
         String line;
         Session s = new Session("localhost", 8189);
-        s.connect();
+        if(!s.connect()) {
+            System.out.println("Не удалось подключится");
+            return;
+        }
         Thread t = new Thread(s);
         t.start();
-        while(true) {
+        while(true && t.isAlive()) {
             System.out.println("&>  ");
             //читаем с консоли
             line = console.nextLine();
-            if (!line.equalsIgnoreCase("exit"))
-                s.send(line);
-            else
+            s.send(line);
+            if (line.equalsIgnoreCase("exit")) {
+                s.close();
                 break;
+            }
         }
     }
 }

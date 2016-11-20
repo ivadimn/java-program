@@ -13,11 +13,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
-        String input;
+        String line;
         Session s = new Session("localhost", 8189);
         s.connect();
         Thread t = new Thread(s);
         t.start();
-
+        while(true) {
+            System.out.println("&>  ");
+            //читаем с консоли
+            line = console.nextLine();
+            if (!line.equalsIgnoreCase("exit"))
+                s.send(line);
+            else
+                break;
+        }
     }
 }

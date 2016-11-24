@@ -67,7 +67,8 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
     public void onTimeOutSocket(ServerSocketThread thread, ServerSocket serverSocket) {
         putLog(thread, "TimeOutSocket " + serverSocket);
     }
-
+    /////////////////////////////////////////////////////////////////////
+    //socketthreadlistener
     @Override
     public void onStartSocketThread(SocketThread thread, Socket socket) {
         putLog(thread, "started " + socket);

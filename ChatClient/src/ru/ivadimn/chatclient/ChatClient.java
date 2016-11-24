@@ -22,24 +22,35 @@ public class ChatClient implements SocketThreadListener {
     public ChatClient(String host, int port, ClientGUI gui) {
         this.gui = gui;
         this.host = host;
-        this
-        if (socketThread != null !! socketThread.isAlive())
-        Socket socket = connect(host, port);
+        this.port = port;
 
     }
+    public void start() {
+        if (socketThread != null && socketThread.isAlive()) {
+            gui.printMsg("Подключение уже установлено");
+            return;
+        }
+        Socket socket = connect(host, port);
+        if (socket != null) {
+            socketThread = new SocketThread("Client - " + host + ":" + port, socket, this);
+        }
+        else {
+            gui.printMsg("Не удалось подключиться к серверу");
+        }
+    }
 
-    private void putLog(String msg) {
-        System.out.println(msg);
+    private void putLog(Thread thread, String msg) {
+        System.out.println(thread.getName() + " : " + msg);
     }
 
     @Override
     public void onStartSocketThread(SocketThread thread, Socket socket) {
-
+        putLog(thread, "started " + socket);
     }
 
     @Override
     public void onStopSocketThread(SocketThread thread, Socket socket) {
-
+        putLog(thread, "stoped " + socket);
     }
 
     @Override
@@ -49,7 +60,7 @@ public class ChatClient implements SocketThreadListener {
 
     @Override
     public void onReceivedString(SocketThread thread, Socket socket, String value) {
-
+        gui.printMsg(value);
     }
 
     private Socket connect(String host, int port) {
@@ -60,8 +71,11 @@ public class ChatClient implements SocketThreadListener {
         catch(IOException e) {
             System.err.println("Не удалось соединится с сервером: " + e.getMessage());
             gui.printMsg("Не удалось соединится с сервером: " + e.getMessage());
-            putLog("Не удалось соединится с сервером: " + e.getMessage());
             return null;
         }
+    }
+
+    public void sendMsg(String msg) {
+        socketThread.sendMsg(msg);
     }
 }

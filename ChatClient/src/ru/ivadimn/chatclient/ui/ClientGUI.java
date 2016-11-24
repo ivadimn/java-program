@@ -1,5 +1,6 @@
 package ru.ivadimn.chatclient.ui;
 
+import ru.ivadimn.chatclient.ChatClient;
 import ru.ivadimn.chatclient.common.Utils;
 
 import javax.swing.*;
@@ -23,6 +24,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private final JButton btnLogin = new JButton(Utils.BTN_LOGIN_CAPTION);
     private final JButton btnSend = new JButton(Utils.BTN_SEND_CAPTION);
+
+    private ChatClient client;
 
     public ClientGUI() {
         setTitle(Utils.CHAT_CLIENT);
@@ -50,6 +53,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         gridPanel.add(txtLogin);
         gridPanel.add(txtPassword);
         gridPanel.add(btnLogin);
+        btnLogin.addActionListener(this);
         add(gridPanel, BorderLayout.NORTH);
     }
     private void initInputPanel() {
@@ -67,6 +71,10 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             if (message.length() > 0) {
                 printMsg(message);
             }
+        }
+        if (source == btnLogin) {
+            client = new ChatClient("localhost", 8189, this);
+            client.start();
         }
     }
     @Override
@@ -89,6 +97,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     public void printMsg(String msg) {
         log.append(msg + "\n");
+        client.sendMsg(msg);
         Utils.writeLog(msg);
     }
 }

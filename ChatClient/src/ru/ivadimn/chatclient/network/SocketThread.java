@@ -3,6 +3,7 @@ package ru.ivadimn.chatclient.network;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 
 /**
@@ -24,7 +25,8 @@ public class SocketThread extends Thread {
     public void run() {
         eventListener.onStartSocketThread(this, socket);
         try {
-            DataInputStream in = new DataInputStream(socket.getInputStream());
+            InputStream inputStream = socket.getInputStream();
+            DataInputStream in = new DataInputStream(inputStream);
             out = new DataOutputStream(socket.getOutputStream());
             eventListener.onSocketIsReady(this, socket);
             while(!isInterrupted()) {
@@ -32,7 +34,8 @@ public class SocketThread extends Thread {
                 eventListener.onReceivedString(this, socket, msg);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         finally {
             try {

@@ -18,6 +18,7 @@ public class ChatClient implements SocketThreadListener {
     private SocketThread socketThread;
     private String host;
     private int port;
+    Socket socket;
 
     public ChatClient(String host, int port, ClientGUI gui) {
         this.gui = gui;
@@ -30,7 +31,7 @@ public class ChatClient implements SocketThreadListener {
             gui.printMsg("Подключение уже установлено");
             return;
         }
-        Socket socket = connect(host, port);
+        socket = connect(host, port);
         if (socket != null) {
             socketThread = new SocketThread("Client - " + host + ":" + port, socket, this);
         }

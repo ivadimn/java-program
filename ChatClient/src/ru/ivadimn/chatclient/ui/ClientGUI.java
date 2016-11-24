@@ -14,8 +14,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JPanel gridPanel = new JPanel(new GridLayout(2, 3));
     private final JPanel inputPanel = new JPanel(new BorderLayout());
     //поля ввода
-    private final JTextField txtAddress = new JTextField();
-    private final JTextField txtPort = new JTextField();
+    private final JTextField txtAddress = new JTextField("localhost");
+    private final JTextField txtPort = new JTextField("8189");
     private final JTextField txtLogin = new JTextField();
     private final JTextField txtPassword = new JTextField();
     private final JTextField txtInput = new JTextField();
@@ -65,9 +65,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         if ((source == btnSend || source == txtInput)) {
             String message = txtInput.getText();
             if (message.length() > 0) {
-                log.append(message + "\n");
-                txtInput.setText("");
-                Utils.writeLog(message);
+                printMsg(message);
             }
         }
     }
@@ -87,5 +85,10 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             msg = "Сообщений нет";
         }
         JOptionPane.showMessageDialog(null, msg, "Exception : ", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void printMsg(String msg) {
+        log.append(msg + "\n");
+        Utils.writeLog(msg);
     }
 }

@@ -74,7 +74,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         }
         if (source == btnLogin) {
             client = new ChatClient("localhost", 8189, this);
-            client.start();
+            client.connect();
         }
     }
     @Override

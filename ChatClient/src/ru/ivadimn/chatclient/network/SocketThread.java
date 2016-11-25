@@ -10,52 +10,53 @@ import java.net.Socket;
  * Created by vadim on 24.11.16.
  */
 public class SocketThread extends Thread {
-    private SocketThreadListener eventListener;
+    private final SocketThreadListener eventListener;
+    private final Socket socket;
     private DataOutputStream out;
-    private Socket socket;
 
-    public SocketThread(String name, Socket soket, SocketThreadListener listener) {
+    public SocketThread(String name, SocketThreadListener eventListener, Socket socket) {
         super(name);
-        this.socket = soket;
-        this.eventListener = listener;
+        this.eventListener = eventListener;
+        this.socket = socket;
         start();
     }
 
     @Override
     public void run() {
-        eventListener.onStartSocketThread(this, socket);
         try {
-            InputStream inputStream = socket.getInputStream();
-            DataInputStream in = new DataInputStream(inputStream);
+            eventListener.onStartSocketThread(this, socket);
+            DataInputStream in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
             eventListener.onSocketIsReady(this, socket);
-            while(!isInterrupted()) {
+            while (!isInterrupted()) {
                 String msg = in.readUTF();
                 eventListener.onReceivedString(this, socket, msg);
             }
-        } catch (IOException e) {
-            //e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        finally {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             try {
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            eventListener.onStopSocketThread(this, socket);
         }
-        eventListener.onStopSocketThread(this, socket);
     }
 
-    public void sendMsg(String msg) {
+    public synchronized boolean sendMsg(String msg) {
         try {
             out.writeUTF(msg);
             out.flush();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            close();
+            return false;
         }
     }
-    public void close() {
+
+    public synchronized void close(){
         interrupt();
         try {
             socket.close();

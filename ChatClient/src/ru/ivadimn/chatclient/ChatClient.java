@@ -26,18 +26,20 @@ public class ChatClient implements SocketThreadListener {
         this.port = port;
 
     }
-    public void start() {
+    public void connect() {
         if (socketThread != null && socketThread.isAlive()) {
             gui.printMsg("Подключение уже установлено");
             return;
         }
-        socket = connect(host, port);
-        if (socket != null) {
-            socketThread = new SocketThread("Client - " + host + ":" + port, socket, this);
+        try {
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(host, port), 3000);
+            socketThread = new SocketThread("Client - " + host + ":" + port, this, socket);
         }
-        else {
-            gui.printMsg("Не удалось подключиться к серверу");
+        catch(IOException e) {
+            System.err.println("Не удалось соединится с сервером: " + e.getMessage());
         }
+
     }
 
     private void putLog(Thread thread, String msg) {
@@ -56,7 +58,7 @@ public class ChatClient implements SocketThreadListener {
 
     @Override
     public void onSocketIsReady(SocketThread thread, Socket socket) {
-
+        putLog(thread, " is ready " + socket);
     }
 
     @Override
@@ -64,17 +66,6 @@ public class ChatClient implements SocketThreadListener {
         gui.printMsg(value);
     }
 
-    private Socket connect(String host, int port) {
-        try (Socket  socket = new Socket()) {
-            socket.connect(new InetSocketAddress(host, port), 3000);
-            return socket;
-        }
-        catch(IOException e) {
-            System.err.println("Не удалось соединится с сервером: " + e.getMessage());
-            gui.printMsg("Не удалось соединится с сервером: " + e.getMessage());
-            return null;
-        }
-    }
 
     public void sendMsg(String msg) {
         socketThread.sendMsg(msg);

@@ -125,11 +125,7 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
             String nick = SQLClient.getNick(arr[1], arr[2]);
             String login = arr[1];
             //убираем зарегистрированного клиента с таким же логином
-            SocketThread socketThread = getSameLoginThread(login);
-            if (socketThread != null) {
-                clients.remove(socketThread);
-                socketThread.close();
-            }
+            removeThreadWSameLogin(login);
             //////////////////////////////////////////////////
             if (nick == null) {
                 thread.sendMsg("Authorization error.");
@@ -167,5 +163,13 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
                 return chThread;
         }
         return null;
+    }
+
+    private void removeThreadWSameLogin(String login) {
+        SocketThread socketThread = getSameLoginThread(login);
+        if (socketThread != null) {
+            clients.remove(socketThread);
+            socketThread.close();
+        }
     }
 }

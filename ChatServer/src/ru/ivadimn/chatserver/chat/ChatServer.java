@@ -1,5 +1,6 @@
 package ru.ivadimn.chatserver.chat;
 
+import ru.ivadimn.chatserver.db.SQLClient;
 import ru.ivadimn.chatserver.network.ServerSocketThread;
 import ru.ivadimn.chatserver.network.ServerSocketThreadListener;
 import ru.ivadimn.chatserver.network.SocketThread;
@@ -7,26 +8,33 @@ import ru.ivadimn.chatserver.network.SocketThreadListener;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 /**
  * Created by vadim on 23.11.16.
  */
 public class ChatServer  implements ServerSocketThreadListener, SocketThreadListener {
-
-    public static final int port = 8189;
     private ServerSocketThread serverSocketThread;
-    private Vector<SocketThread> clients = new Vector<>();
+    private final Vector<ChatSocketThread> clients = new Vector<>();
 
-    public void start() {
-        if (serverSocketThread != null && serverSocketThread.isAlive()) {
+    //для рассылки серверного времени
+    //private final Calendar CALENDAR = Calendar.getInstance();
+
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy : HH:mm:ss");
+
+    public void start(int port){
+        if(serverSocketThread != null && serverSocketThread.isAlive()){
             System.out.println("Сервер уже запущен.");
             return;
         }
         serverSocketThread = new ServerSocketThread("ServerSocketThread", this, port, 10000);
+        SQLClient.connect();
     }
-    public void stop() {
-        if (serverSocketThread == null || !serverSocketThread.isAlive()) {
+
+    public void stop(){
+        if(serverSocketThread == null || !serverSocketThread.isAlive()){
             System.out.println("Сервер уже остановлен.");
             return;
         }
@@ -34,63 +42,130 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
         for (int i = 0; i < clients.size(); i++) {
             clients.get(i).close();
         }
+        SQLClient.disconnect();
     }
 
-
-    private synchronized void putLog(Thread thread, String msg) {
+    private synchronized void putLog(Thread thread, String msg){
         System.out.println(thread.getName() + ": " + msg);
     }
 
+    //События ServerSocketThread
     @Override
     public void onStartServerThread(ServerSocketThread thread) {
-        putLog(thread, "Сервер запущщен!");
+        putLog(thread, "started.");
     }
 
     @Override
     public void onStopServerThread(ServerSocketThread thread) {
-        putLog(thread, "Сервер отановлен!");
+        putLog(thread, "stopped.");
     }
 
     @Override
     public void onCreateServerSocket(ServerSocketThread thread, ServerSocket serverSocket) {
-        putLog(thread, "начал прослушивать порт!");
+        putLog(thread, "onCreateServerSocket " + serverSocket);
     }
 
     @Override
     public void onAcceptedSocket(ServerSocketThread thread, Socket socket) {
-        putLog(thread, "Клиент подключился " + socket);
+        putLog(thread, "Client connected " + socket);
         String threadName = "SocketThread: " + socket.getInetAddress() + ":" + socket.getPort();
-        new SocketThread(threadName, socket, this);
+        new ChatSocketThread(threadName, this, socket);
     }
 
     @Override
     public void onTimeOutSocket(ServerSocketThread thread, ServerSocket serverSocket) {
-        putLog(thread, "TimeOutSocket " + serverSocket);
+//        putLog(thread, "onTimeOutSocket.");
     }
-    /////////////////////////////////////////////////////////////////////
-    //socketthreadlistener
+
+    //события сокета
     @Override
-    public void onStartSocketThread(SocketThread thread, Socket socket) {
+    public synchronized void onStartSocketThread(SocketThread thread, Socket socket) {
         putLog(thread, "started " + socket);
     }
 
     @Override
-    public void onStopSocketThread(SocketThread thread, Socket socket) {
+    public synchronized void onStopSocketThread(SocketThread thread, Socket socket) {
         putLog(thread, "stopped " + socket);
-        if (!clients.remove(thread)) throw new RuntimeException("Не удалось удалсть поток: " + thread);
-        for (int i = 0; i < clients.size(); i++) {
-            clients.get(i).sendMsg(thread.getName() + ": disconnected.");
+        if(!clients.remove((ChatSocketThread) thread))
+            throw new RuntimeException("Не удалось удалсть поток: " + thread);
+        if(((ChatSocketThread) thread).isAuthorized()){
+            for (int i = 0; i < clients.size(); i++) {
+                clients.get(i).sendMsg(((ChatSocketThread) thread).getNick() + ": disconnected.");
+            }
         }
     }
 
     @Override
-    public void onSocketIsReady(SocketThread thread, Socket socket) {
+    public synchronized void onSocketIsReady(SocketThread thread, Socket socket) {
         putLog(thread, "Socket is ready " + socket);
-        clients.add(thread);
+        clients.add((ChatSocketThread) thread);
     }
 
     @Override
-    public void onReceivedString(SocketThread thread, Socket socket, String value) {
-        thread.sendMsg("Echo: " + value);
+    public synchronized void onReceivedString(SocketThread thread, Socket socket, String value) {
+        ChatSocketThread chatSocketThread = (ChatSocketThread) thread;
+        //        /auth login password
+        if(!chatSocketThread.isAuthorized()){
+            handleNonAuthorizeMsg(chatSocketThread, value);
+            return;
+        }
+        if (handleMessage((ChatSocketThread) thread, value)) return;
+        //получить серверное время
+
+        String strDate = dateFormat.format(new Date());
+        for (int i = 0; i < clients.size(); i++) clients.get(i).sendMsg(strDate + " " + chatSocketThread.getNick() + ": " + value);
+    }
+
+    private void handleNonAuthorizeMsg(ChatSocketThread thread, String value) {
+        String[] arr = value.split(" ");
+        if (arr.length != 3 || !arr[0].equals("/auth")) {
+            thread.sendMsg("Authorization error.");
+            thread.close();
+        } else {
+            String nick = SQLClient.getNick(arr[1], arr[2]);
+            String login = arr[1];
+            //убираем зарегистрированного клиента с таким же логином
+            SocketThread socketThread = getSameLoginThread(login);
+            if (socketThread != null) {
+                clients.remove(socketThread);
+                socketThread.close();
+            }
+            //////////////////////////////////////////////////
+            if (nick == null) {
+                thread.sendMsg("Authorization error.");
+                thread.close();
+            } else {
+                thread.setNick(nick);
+                thread.setLogin(login);
+                thread.setAuthorized(true);
+                for (int i = 0; i < clients.size(); i++) clients.get(i).sendMsg(nick + " connected.");
+            }
+        }
+    }
+
+    private boolean handleMessage(ChatSocketThread thread, String value) {
+        if(value.length() > 0 && value.charAt(0) != '/' || value.length() < 2) return false;
+        String[] arr = value.split(" ");
+        switch (arr[0]) {
+            case "/private":
+                return true;
+            case "/exit":
+                thread.close();
+                return true;
+            case "/kick":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    //ищем клиента с конкретным логином
+    private SocketThread getSameLoginThread(String login) {
+        for (int i = 0; i < clients.size(); i++) {
+            ChatSocketThread chThread = clients.get(i);
+            if(login.equals(chThread.getLogin()))
+                return chThread;
+        }
+        return null;
     }
 }

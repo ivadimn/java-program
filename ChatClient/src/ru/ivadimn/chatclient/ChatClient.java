@@ -28,7 +28,7 @@ public class ChatClient implements SocketThreadListener {
     }
     public void connect() {
         if (socketThread != null && socketThread.isAlive()) {
-            gui.printMsg("Подключение уже установлено");
+            //gui.printMsg("Подключение уже установлено");
             return;
         }
         try {
@@ -63,7 +63,7 @@ public class ChatClient implements SocketThreadListener {
 
     @Override
     public void onReceivedString(SocketThread thread, Socket socket, String value) {
-        gui.printMsg(value);
+        //gui.printMsg(value);
     }
 
 

@@ -19,11 +19,6 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
     private ServerSocketThread serverSocketThread;
     private final Vector<ChatSocketThread> clients = new Vector<>();
 
-    //для рассылки серверного времени
-    //private final Calendar CALENDAR = Calendar.getInstance();
-
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy : HH:mm:ss");
-
     public void start(int port){
         if(serverSocketThread != null && serverSocketThread.isAlive()){
             System.out.println("Сервер уже запущен.");
@@ -110,10 +105,8 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
             return;
         }
         if (handleMessage((ChatSocketThread) thread, value)) return;
-        //получить серверное время
 
-        String strDate = dateFormat.format(new Date());
-        for (int i = 0; i < clients.size(); i++) clients.get(i).sendMsg(strDate + " " + chatSocketThread.getNick() + ": " + value);
+        for (int i = 0; i < clients.size(); i++) clients.get(i).sendMsg( chatSocketThread.getNick() + ": " + value);
     }
 
     private void handleNonAuthorizeMsg(ChatSocketThread thread, String value) {
@@ -124,6 +117,7 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
         } else {
             String nick = SQLClient.getNick(arr[1], arr[2]);
             String login = arr[1];
+
             //убираем зарегистрированного клиента с таким же логином
             removeThreadWSameLogin(login);
             //////////////////////////////////////////////////
@@ -172,4 +166,5 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
             socketThread.close();
         }
     }
+
 }

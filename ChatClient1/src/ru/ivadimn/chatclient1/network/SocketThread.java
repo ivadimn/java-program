@@ -1,23 +1,17 @@
-package ru.ivadimn.chatserver.network;
+package ru.ivadimn.chatclient1.network;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
- * Created by vadim on 23.11.16.
+ * Created by vadim on 26.11.2016.
  */
 public class SocketThread extends Thread {
     private final SocketThreadListener eventListener;
     private final Socket socket;
     private DataOutputStream out;
-
-    //для рассылки серверного времени
-    Date time = new Date();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy : HH:mm:ss");
 
     public SocketThread(String name, SocketThreadListener eventListener, Socket socket) {
         super(name);
@@ -51,7 +45,7 @@ public class SocketThread extends Thread {
 
     public synchronized boolean sendMsg(String msg) {
         try {
-            out.writeUTF(getCurrentTime() + msg);
+            out.writeUTF(msg);
             out.flush();
             return true;
         } catch (IOException e) {
@@ -68,11 +62,5 @@ public class SocketThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    //получить текеущее время
-    private String getCurrentTime() {
-        time.setTime(System.currentTimeMillis());
-        return dateFormat.format(time) + " ";
     }
 }

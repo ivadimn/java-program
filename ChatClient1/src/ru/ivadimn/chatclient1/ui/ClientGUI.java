@@ -1,7 +1,7 @@
-package ru.ivadimn.chatclient.ui;
+package ru.ivadimn.chatclient1.ui;
 
-import ru.ivadimn.chatclient.network.SocketThread;
-import ru.ivadimn.chatclient.network.SocketThreadListener;
+import ru.ivadimn.chatclient1.network.SocketThread;
+import ru.ivadimn.chatclient1.network.SocketThreadListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * Created by vadim on 11.11.16.
+ * Created by vadim on 26.11.2016.
  */
 public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
     public static void main(String[] args) {
@@ -82,8 +82,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             socketThread.sendMsg(msg);
             fieldInput.setText(null);
             fieldInput.grabFocus();
-            //логин по нажатию на кнопку ENTER
-        } else if(source == btnLogin || source == fieldPass) {
+        } else if(source == btnLogin || source == fieldPass){
             connect();
             fieldInput.grabFocus();
         } else if(source == btnDisconnect){
@@ -171,4 +170,13 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         });
     }
 
+    public void printMsg(String value) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                log.append(value + "\n");
+                log.setCaretPosition(log.getDocument().getLength());
+            }
+        });
+    }
 }

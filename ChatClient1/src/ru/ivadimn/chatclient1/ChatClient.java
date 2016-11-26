@@ -1,16 +1,15 @@
-package ru.ivadimn.chatclient;
+package ru.ivadimn.chatclient1;
 
-import ru.ivadimn.chatclient.network.SocketThread;
-import ru.ivadimn.chatclient.network.SocketThreadListener;
-import ru.ivadimn.chatclient.ui.ClientGUI;
+import ru.ivadimn.chatclient1.network.SocketThread;
+import ru.ivadimn.chatclient1.network.SocketThreadListener;
+import ru.ivadimn.chatclient1.ui.ClientGUI;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
- * Created by vadim on 24.11.16.
+ * Created by vadim on 26.11.2016.
  */
 public class ChatClient implements SocketThreadListener {
 
@@ -27,10 +26,6 @@ public class ChatClient implements SocketThreadListener {
 
     }
     public void connect() {
-        if (socketThread != null && socketThread.isAlive()) {
-            //gui.printMsg("Подключение уже установлено");
-            return;
-        }
         try {
             socket = new Socket();
             socket.connect(new InetSocketAddress(host, port), 3000);

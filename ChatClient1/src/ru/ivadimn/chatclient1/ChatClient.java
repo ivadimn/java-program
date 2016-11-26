@@ -58,7 +58,7 @@ public class ChatClient implements SocketThreadListener {
 
     @Override
     public void onReceivedString(SocketThread thread, Socket socket, String value) {
-        //gui.printMsg(value);
+        gui.printMsg(value);
     }
 
 

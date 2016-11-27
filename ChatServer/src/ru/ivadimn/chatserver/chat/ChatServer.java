@@ -119,7 +119,7 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
             String login = arr[1];
 
             //убираем зарегистрированного клиента с таким же логином
-            removeThreadWSameLogin(login);
+            //removeThreadWSameLogin(login);
             //////////////////////////////////////////////////
             if (nick == null) {
                 thread.sendMsg("Authorization error.");

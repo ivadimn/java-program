@@ -1,5 +1,6 @@
 package ru.ivadimn.chatclient1.ui;
 
+import ru.ivadimn.chatclient1.ChatClient;
 import ru.ivadimn.chatclient1.network.SocketThread;
 import ru.ivadimn.chatclient1.network.SocketThreadListener;
 
@@ -13,7 +14,7 @@ import java.net.Socket;
 /**
  * Created by vadim on 26.11.2016.
  */
-public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
+public class ClientGUI extends JFrame implements ActionListener,  Information {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -35,6 +36,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JButton btnDisconnect = new JButton("Disconnect");
     private final JPanel bottomPanel = new JPanel(new BorderLayout());;
     private final JPanel upperPanel = new JPanel(new GridLayout(2, 3));
+    private ChatClient client;
 
     private ClientGUI(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -66,11 +68,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         upperPanel.add(fieldPass);
         upperPanel.add(btnLogin);
         add(upperPanel, BorderLayout.NORTH);
-
-        Thread.setDefaultUncaughtExceptionHandler(this);
-
         setAlwaysOnTop(true);
-
         setVisible(true);
     }
 
@@ -78,105 +76,55 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source == btnSend || source == fieldInput){
-            String msg = fieldInput.getText();
-            socketThread.sendMsg(msg);
+            client.sendMsg(fieldInput.getText());
             fieldInput.setText(null);
             fieldInput.grabFocus();
         } else if(source == btnLogin || source == fieldPass){
-            connect();
+            client = new ChatClient(fieldIPAddr.getText(), Integer.parseInt(fieldPort.getText()), this);
+            client.connect();
             fieldInput.grabFocus();
         } else if(source == btnDisconnect){
-            socketThread.close();
+            client.disconnect();
         } else {
             throw new RuntimeException("Неизвестный source = " + source);
         }
     }
 
     @Override
-    public void uncaughtException(Thread t, Throwable e) {
-        e.printStackTrace();
-        StackTraceElement [] stackTraceElements = e.getStackTrace();
-        String msg;
-        if(stackTraceElements.length != 0){
-            msg = stackTraceElements[0].toString() + ": " + e.getMessage();
-        } else {
-            msg = "StackTrace пустой";
-        }
-        JOptionPane.showMessageDialog(null, msg, "Exception: ", JOptionPane.ERROR_MESSAGE);
-        System.exit(1);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private SocketThread socketThread;
-
-    private void connect(){
-        try {
-            Socket socket = new Socket(fieldIPAddr.getText(), Integer.parseInt(fieldPort.getText()));
-            socketThread = new SocketThread("SocketThread", this, socket);
-        } catch (IOException e){
-            log.append("Exception: " + e.getMessage() + "\n");
-        }
-    }
-
-    //События сокета
-    @Override
-    public void onStartSocketThread(SocketThread thread, Socket socket) {
+    public void printMessage(String msg) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                log.append("SocketThread started.\n");
+                log.append(msg + "\n");
                 log.setCaretPosition(log.getDocument().getLength());
             }
         });
     }
 
     @Override
-    public void onStopSocketThread(SocketThread thread, Socket socket) {
+    public void updateUI(boolean param) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                log.append("Connection lost.\n");
-                log.setCaretPosition(log.getDocument().getLength());
-                upperPanel.setVisible(true);
-                bottomPanel.setVisible(false);
+                if (param) {
+                    upperPanel.setVisible(false);
+                    bottomPanel.setVisible(true);
+                }
+                else {
+                    upperPanel.setVisible(true);
+                    bottomPanel.setVisible(false);
+                }
             }
         });
     }
 
     @Override
-    public void onSocketIsReady(SocketThread thread, Socket socket) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                log.append("Connection established.\n");
-                log.setCaretPosition(log.getDocument().getLength());
-                upperPanel.setVisible(false);
-                bottomPanel.setVisible(true);
-                String request = "/auth " + fieldLogin.getText() + " " + new String(fieldPass.getPassword());
-                socketThread.sendMsg(request);
-            }
-        });
+    public String getLogin() {
+        return fieldLogin.getText();
     }
 
     @Override
-    public void onReceivedString(SocketThread thread, Socket socket, String value) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                log.append(value + "\n");
-                log.setCaretPosition(log.getDocument().getLength());
-            }
-        });
-    }
-
-    public void printMsg(String value) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                log.append(value + "\n");
-                log.setCaretPosition(log.getDocument().getLength());
-            }
-        });
+    public String getPassword() {
+        return new String(fieldPass.getPassword());
     }
 }

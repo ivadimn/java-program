@@ -149,8 +149,10 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
         }
     }
 
-    //ищем клиента с конкретным логином
-    private SocketThread getSameLoginThread(String login) {
+    /**
+     * ищем клиента с логином - login
+     */
+     private SocketThread getSameLoginThread(String login) {
         for (int i = 0; i < clients.size(); i++) {
             ChatSocketThread chThread = clients.get(i);
             if(login.equals(chThread.getLogin()))
@@ -159,6 +161,10 @@ public class ChatServer  implements ServerSocketThreadListener, SocketThreadList
         return null;
     }
 
+    /**
+     * отключаем клиента с логином
+     * @param login
+     */
     private void removeThreadWSameLogin(String login) {
         SocketThread socketThread = getSameLoginThread(login);
         if (socketThread != null) {

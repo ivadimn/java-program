@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D://JavaGit//java03/java03.iml" filepath="D://JavaGit//java03/java03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java03.iml" filepath="$PROJECT_DIR$/java03.iml" />
     </modules>
   </component>
 </project>

@@ -26,6 +26,9 @@ public class Main {
 
         BinaryOperator<Integer> bop = (x, y) -> x + y;
         System.out.println(bop.apply(3, 7));
+        BinaryOperator<String> concat = (s1, s2)-> s1.concat(s2);
+        System.out.println(concat.apply("Hello ", "world"));
+
         //EventQueue.invokeLater(()->new MainFrame());
         //Supplier<DateFormatter> dateSupplier = () -> new DateFormatter(new SimpleDateFormat("dd-MMM-yyyy"));
 

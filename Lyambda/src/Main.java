@@ -12,6 +12,10 @@ import java.util.stream.Stream;
 
 public class Main {
 
+    public enum Specialization {
+        WARRIOR, ARCHER, MAGE
+    }
+
     public static String[] places = {"Moscow", "London", "Moscow", "London", "Madrid", "London"};
     public static List<String> allArtists = new ArrayList<>(Arrays.asList(places));
     public static void main(String[] args) {
@@ -50,6 +54,13 @@ public class Main {
         Integer[] digs = {2, 5, 10, 56, 0, -9, -67};
         int m = Stream.of(digs).max(Comparator.comparing(d -> d)).get();
         System.out.println(m);
+
+        for (Specialization s : Specialization.values()) {
+            ;
+            System.out.println(s.toString().substring(0, 1) + s.toString().substring(1).toLowerCase());
+        }
+
+        System.out.println(24.0 * 0.1);
 
     }
 

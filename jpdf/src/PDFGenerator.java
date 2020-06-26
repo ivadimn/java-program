@@ -1,30 +1,35 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import java.io.IOException;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+
+import javax.imageio.ImageIO;
+
 
 public class PDFGenerator {
     public static final String DEST = "test/hello.pdf";
+
     public static void main(String[] args) {
+        PDDocument document = null;
 
         try {
-            Document doc = new Document();
-            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(DEST));
-            //setting font family, color
-            Font font = new Font(Font.HELVETICA, 16, Font.BOLDITALIC, Color.RED);
-            doc.open();
-            Paragraph para = new Paragraph("Hello! This PDF is created using openPDF", font);
-            doc.add(para);
-            doc.close();
-            writer.close();
-            System.out.println("pdf is written");
-        } catch (DocumentException | FileNotFoundException e) {
-            // TODO Auto-generated catch block
+            document = PDDocument.load(new File("test/doc.pdf"));
+            PDFRenderer renderer = new PDFRenderer(document);
+            int numPages = document.getNumberOfPages();
+            for (int i = 0; i < numPages; i++) {
+                BufferedImage image = renderer.renderImageWithDPI(i, 96); // Windows native DPI
+                String fileName = String.format("image-%d.jpg", i);
+                ImageIO.write(image, "PNG", new File(fileName));
+                System.out.println("Writing " + fileName);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

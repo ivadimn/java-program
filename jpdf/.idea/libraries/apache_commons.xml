@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="apache-commons">
     <CLASSES>
-      <root url="jar://$USER_HOME$/lib/apache-commons.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/apache-commons.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,3 +1,5 @@
+package core;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,7 +24,8 @@ public class PDFGenerator {
             PDFRenderer renderer = new PDFRenderer(document);
             int numPages = document.getNumberOfPages();
             for (int i = 0; i < numPages; i++) {
-                BufferedImage image = renderer.renderImageWithDPI(i, 96); // Windows native DPI
+                //BufferedImage image = renderer.renderImageWithDPI(i, 96); // Windows native DPI
+                BufferedImage image = renderer.renderImage(i); // Windows native DPI
                 String fileName = String.format("image-%d.jpg", i);
                 ImageIO.write(image, "PNG", new File(fileName));
                 System.out.println("Writing " + fileName);

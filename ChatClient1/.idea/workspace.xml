@@ -20,25 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14b6de4a-3244-4476-a1be-5e0f8b96d023" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../jpdf/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pdfgen.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Ball/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ball/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Ball/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ball/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/network/SocketThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/network/SocketThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/network/SocketThreadListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/network/SocketThreadListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/ClientGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/Information.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient1/ru/ivadimn/chatclient1/ui/Information.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jpdf/image-0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jpdf/image-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jpdf/image-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jpdf/out/production/jpdf/PDFGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jpdf/src/PDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jpdf/src/core/PDFGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,6 +176,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="0" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1593202722731" />
+    <state x="79" y="0" key="new project wizard" timestamp="1593860830009">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="79" y="0" key="new project wizard/0.0.1280.680@0.0.1280.680" timestamp="1593860830009" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

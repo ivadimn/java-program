@@ -10,19 +10,16 @@ public class PdfImagesPanel extends JPanel {
 
     List<SmallImagePanel> imagePanelList = new ArrayList<>();
 
-    public PdfImagesPanel(List<BufferedImage> images) {
+    public PdfImagesPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        //this.setLayout(new ScrollPaneLayout());
-        this.setBackground(Color.yellow);
         this.setPreferredSize(new Dimension(200, 900));
-        //add(new JButton("Click"));
+    }
 
+    public void setImages(List<BufferedImage> images) {
         for (BufferedImage img : images) {
             SmallImagePanel smallImagePanel = new SmallImagePanel(img);
             imagePanelList.add(smallImagePanel);
             add(smallImagePanel);
         }
-
-
     }
 }

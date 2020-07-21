@@ -11,12 +11,14 @@ import java.awt.image.RescaleOp;
 public class SmallImagePanel extends JPanel {
 
     private BufferedImage image;
+    private boolean isFocused;
 
     public SmallImagePanel(BufferedImage image) {
         this.image = image;
         setPreferredSize(new Dimension(image.getWidth() / 4 + 10,
                 image.getHeight() / 4 + 10));
-        this.setBackground(Color.BLUE);
+        this.setBackground(Color.WHITE);
+        isFocused = false;
     }
 
     @Override
@@ -30,10 +32,6 @@ public class SmallImagePanel extends JPanel {
         Graphics gl = bi.getGraphics();
         gl.drawImage(image, 0, 0, null);
 
-        /*
-         * Create a rescale filter op that makes the image
-         * 50% opaque.
-         */
         double sx = 0.25f;
         double sy = 0.25f;
         AffineTransform transform = new AffineTransform();
@@ -41,6 +39,9 @@ public class SmallImagePanel extends JPanel {
         AffineTransformOp top = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
 
         /* Draw the image, applying the filter */
+        if (isFocused) {
+            g2.setBackground(Color.BLUE);
+        }
         g2.drawImage(bi, top, 5, 5);
     }
 }

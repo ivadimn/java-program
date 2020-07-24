@@ -17,8 +17,12 @@ public class SmallImagePanel extends JPanel {
         this.image = image;
         setPreferredSize(new Dimension(image.getWidth() / 4 + 10,
                 image.getHeight() / 4 + 10));
+<<<<<<< HEAD
         this.setBackground(Color.WHITE);
         isFocused = false;
+=======
+        //this.setBackground(Color.BLUE);
+>>>>>>> new version
     }
 
     @Override
@@ -43,5 +47,9 @@ public class SmallImagePanel extends JPanel {
             g2.setBackground(Color.BLUE);
         }
         g2.drawImage(bi, top, 5, 5);
+    }
+
+    private BufferedImage getImage() {
+        return image;
     }
 }

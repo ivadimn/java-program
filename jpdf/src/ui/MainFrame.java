@@ -27,17 +27,11 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setResizable(true);
 
-<<<<<<< HEAD
-        imagesPanel = new PdfImagesPanel();
-        JScrollPane pane = new JScrollPane(imagesPanel);
-        add(pane, BorderLayout.WEST);
-
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new PdfFileFilter());
         controller = new Controller();
 
         setJMenuBar(createMenuBar());
-=======
         fileChooser = new JFileChooser();
         controller = new Controller();
 
@@ -48,15 +42,13 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(createMenuBar());
 
->>>>>>> new version
+
         setVisible(true);
     }
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-
-<<<<<<< HEAD
         JMenu fileMenu = new JMenu("File");
         JMenuItem openFileItem = new JMenuItem("Open ...");
         JMenuItem closeFileItem = new JMenuItem("Close");
@@ -74,15 +66,8 @@ public class MainFrame extends JFrame {
         fileMenu.addSeparator();
         fileMenu.add(exportDataItem);
         fileMenu.add(importDataItem);
-=======
-        JMenu fileMenu = new JMenu("Файл");
-        JMenuItem openFileItem = new JMenuItem("Открыть ...");
-        JMenuItem saveFileItem = new JMenuItem("Сохранить ...");
-        JMenuItem exitItem = new JMenuItem("Выход");
-        fileMenu.add(openFileItem);
-        fileMenu.addSeparator();
-        fileMenu.add(saveFileItem);
->>>>>>> new version
+
+
         fileMenu.addSeparator();
         fileMenu.add(exitItem);
 
@@ -90,29 +75,20 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-<<<<<<< HEAD
-                    controller.generateImages(fileChooser.getSelectedFile());
-=======
                     try {
                         controller.loadFromFile(fileChooser.getSelectedFile());
+                        imagesPanel.setData(controller.getPages());
                         imagesPanel.refresh();
                     } catch (IOException ioException) {
                         JOptionPane.showMessageDialog(MainFrame.this,
                                 "Could not load data from file.", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
->>>>>>> new version
                 }
             }
         });
 
-<<<<<<< HEAD
-        saveAsFileItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-                    System.out.println(fileChooser.getSelectedFile());
-=======
+
         saveFileItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +100,6 @@ public class MainFrame extends JFrame {
                                 "Could not save data to file.", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
->>>>>>> new version
                 }
             }
         });
@@ -137,54 +112,27 @@ public class MainFrame extends JFrame {
         showMenu.add(showFormItem);
         windowMenu.add(showMenu);
 
-<<<<<<< HEAD
-=======
-        JMenuItem prefsMenuItem = new JMenuItem("Preferences ...");
-        windowMenu.add(prefsMenuItem);
-
-        prefsMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //prefsDialog.setVisible(true);
-            }
-        });
-
->>>>>>> new version
         showFormItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
-<<<<<<< HEAD
+
                 imagesPanel.setVisible(menuItem.isSelected());
-=======
-                //formPanel.setVisible(menuItem.isSelected());
->>>>>>> new version
+
             }
         });
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
         exitItem.setMnemonic(KeyEvent.VK_X);
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
-
-<<<<<<< HEAD
-=======
         openFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 
 
->>>>>>> new version
+
         exitItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-<<<<<<< HEAD
-                String text = JOptionPane.showInputDialog(MainFrame.this,
-                        "Enter your user name", "Enter user name",
-                        JOptionPane.OK_OPTION | JOptionPane.INFORMATION_MESSAGE);
-
-                System.out.println(text);
-=======
->>>>>>> new version
                 int action = JOptionPane.showConfirmDialog(MainFrame.this,
                         "Do you really want to exit the application",
                         "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
@@ -196,10 +144,6 @@ public class MainFrame extends JFrame {
 
         menuBar.add(fileMenu);
         menuBar.add(windowMenu);
-<<<<<<< HEAD
-
-=======
->>>>>>> new version
         return menuBar;
     }
 }

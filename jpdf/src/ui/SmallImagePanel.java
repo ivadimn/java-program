@@ -17,12 +17,10 @@ public class SmallImagePanel extends JPanel {
         this.image = image;
         setPreferredSize(new Dimension(image.getWidth() / 4 + 10,
                 image.getHeight() / 4 + 10));
-<<<<<<< HEAD
+
         this.setBackground(Color.WHITE);
         isFocused = false;
-=======
-        //this.setBackground(Color.BLUE);
->>>>>>> new version
+
     }
 
     @Override

@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
     private PdfImagesPanel imagesPanel;
     private JFileChooser fileChooser;
     private Controller controller;
+    private BigImagePanel bigImagePanel;
 
     public MainFrame() throws HeadlessException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -39,9 +40,16 @@ public class MainFrame extends JFrame {
         JScrollPane pane = new JScrollPane(imagesPanel);
         add(pane, BorderLayout.WEST);
         imagesPanel.setData(controller.getPages());
-
+        imagesPanel.setImageListener(new DrawImageListener() {
+            @Override
+            public void drawImage(BufferedImage image) {
+                bigImagePanel.setImage(image);
+                bigImagePanel.updateUI();
+            }
+        });
+        bigImagePanel = new BigImagePanel();
+        add(new JScrollPane(bigImagePanel), BorderLayout.CENTER);
         setJMenuBar(createMenuBar());
-
 
         setVisible(true);
     }

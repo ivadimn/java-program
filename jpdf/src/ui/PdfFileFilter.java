@@ -5,7 +5,7 @@ import common.Utils;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-public class PDFFileFilter extends FileFilter {
+public class PdfFileFilter extends FileFilter  {
     @Override
     public boolean accept(File f) {
         if (f.isDirectory()) {

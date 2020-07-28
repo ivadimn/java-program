@@ -22,7 +22,7 @@ public class SmallImagePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g.create();
         int w = image.getWidth();
         int h = image.getHeight();
         BufferedImage bi = new
@@ -46,6 +46,7 @@ public class SmallImagePanel extends JPanel {
             this.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3, false));
         }*/
         g2.drawImage(bi, top, 5, 5);
+        g2.dispose();
 
         //g2.drawImage(compImage, 5, 5, null);
     }

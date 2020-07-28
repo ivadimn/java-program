@@ -19,8 +19,15 @@ public class BigImagePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (image == null) return;
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(image, 0, 0, null);
+        Dimension size = getSize();
+        int w = image.getWidth();
+        int x = 0;
+        if (size.width > w) {
+            x = (size.width - w) / 2;
+        }
+        g2.drawImage(image, x, 0, null);
     }
 
 

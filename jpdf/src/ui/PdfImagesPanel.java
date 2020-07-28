@@ -16,7 +16,7 @@ public class PdfImagesPanel extends JPanel {
 
     public PdfImagesPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(150, 150));
+        this.setPreferredSize(new Dimension(150, 900));
     }
 
 

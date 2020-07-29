@@ -9,24 +9,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PDFDocument {
-    private LinkedList<BufferedImage> pages;
+    private List<PDFPage> pages;
     private PDDocument document;
 
     public PDFDocument() {
         pages = new LinkedList<>();
     }
 
-    public LinkedList<BufferedImage> getPages() {
+    public List<PDFPage> getPages() {
         return pages;
     }
 
-    public void addPage(BufferedImage image) {
-        pages.add(image);
-    }
-
     public void insertPage(BufferedImage image, int index) {
-        pages.add(index, image);
-
+        pages.add(index, new PDFPage(image, false, -1));
     }
 
     public void removePage(int index) {
@@ -37,13 +32,13 @@ public class PDFDocument {
         document = Render.loadDocument(file);
         if (document != null) {
             List<BufferedImage> images = Render.getImageList(document);
-            pages.addAll(images);
+            images.forEach(img -> pages.add(new PDFPage(img, true, images.indexOf(img))));
         }
 
     }
 
-    public void saveToFile(File file) {
-
+    public void saveToFile(File file) throws IOException {
+        Render.saveToFile(document, pages, file);
     }
 
     public void saveAsImages() {

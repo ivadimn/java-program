@@ -1,5 +1,12 @@
 package common;
 
+import org.apache.pdfbox.tools.imageio.ImageIOUtil;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Utils {
 
     public static String getFileExtension(String fileName) {
@@ -11,5 +18,9 @@ public class Utils {
             return null;
         }
         return fileName.substring(pointIndex + 1, fileName.length());
+    }
+
+    public static BufferedImage getImageFromFile(File file) throws IOException {
+        return ImageIO.read(file);
     }
 }

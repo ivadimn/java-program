@@ -1,6 +1,7 @@
 package controller;
 
 
+import core.PDFPage;
 import core.Render;
 import core.PDFDocument;
 
@@ -21,8 +22,15 @@ public class Controller {
         document.saveToFile(file);
     }
 
-    public List<BufferedImage> getPages() {
+    public List<PDFPage> getPages() {
         return document.getPages();
-
     }
+
+    public void insertImage(BufferedImage img, int index) {
+        document.insertPage(img, index);
+    }
+    public void removeImage(int index) {
+        document.removePage(index);
+    }
+
 }

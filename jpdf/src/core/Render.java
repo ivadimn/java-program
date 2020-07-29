@@ -22,6 +22,7 @@ import javax.swing.*;
 public class Render {
 
     public static List<BufferedImage> getImageList(PDDocument document) throws IOException  {
+
        List<BufferedImage> images = new ArrayList<>();
        PDFRenderer renderer = new PDFRenderer(document);
        int numPages = document.getNumberOfPages();
@@ -36,6 +37,20 @@ public class Render {
         return PDDocument.load(file);
     }
 
+    public static void saveToFile(PDDocument doc, List<PDFPage> pages, File file) throws IOException {
+        PDDocument targetDoc = new PDDocument();
+        for (PDFPage page : pages) {
+            if (page.isInDocument()) {
+                targetDoc.addPage(doc.getPage(page.getNumPage()));
+            }
+            else {
+                PDPage p = new PDPage();
+                targetDoc.addPage(p);
+                imageToPage(targetDoc, page.getImage(), p);
+            }
+        }
+        targetDoc.save(file);
+    }
     public static PDDocument insertImage(PDDocument doc, BufferedImage img, int index) throws IOException {
 
         PDDocument docTarget = new PDDocument();

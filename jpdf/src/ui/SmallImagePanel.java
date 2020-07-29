@@ -17,6 +17,7 @@ public class SmallImagePanel extends JPanel {
         this.image = image;
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3, false));
         isFocused = false;
+        this.setPreferredSize(new Dimension(150, 200));
     }
 
     @Override
@@ -40,11 +41,11 @@ public class SmallImagePanel extends JPanel {
         //Graphics2D gtmp = compImage.createGraphics();
         //gtmp.drawImage(bi, top, 0,0);
 
-        /*
+
         if (isFocused) {
             //g2.setBackground(Color.BLUE);
             this.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3, false));
-        }*/
+        }
         g2.drawImage(bi, top, 5, 5);
         g2.dispose();
 

@@ -1,16 +1,14 @@
 package ui;
 
+import common.Utils;
 import controller.Controller;
-import core.Render;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
@@ -32,19 +30,33 @@ public class MainFrame extends JFrame {
         fileChooser.setFileFilter(new PdfFileFilter());
         controller = new Controller();
 
-        setJMenuBar(createMenuBar());
-        fileChooser = new JFileChooser();
-        controller = new Controller();
-
         imagesPanel = new PdfImagesPanel();
-        JScrollPane pane = new JScrollPane(imagesPanel);
-        add(pane, BorderLayout.WEST);
-        imagesPanel.setData(controller.getPages());
-        imagesPanel.setImageListener(new DrawImageListener() {
+        add(imagesPanel, BorderLayout.WEST);
+        imagesPanel.setImageListener(new ImageListener() {
             @Override
             public void drawImage(BufferedImage image) {
                 bigImagePanel.setImage(image);
                 bigImagePanel.updateUI();
+            }
+
+            @Override
+            public void insertImageFromFile(int index) {
+                if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        BufferedImage image = Utils.getImageFromFile(fileChooser.getSelectedFile());
+                        controller.insertImage(image, index);
+                    } catch (IOException ioException) {
+                        JOptionPane.showMessageDialog(MainFrame.this,
+                                ioException.getMessage(), "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void removeImage(int index) {
+
             }
         });
         bigImagePanel = new BigImagePanel();

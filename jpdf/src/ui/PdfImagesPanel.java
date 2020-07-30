@@ -38,12 +38,19 @@ public class PdfImagesPanel extends JPanel {
                 }
             }
         });
+        createPopupMenu();
+    }
+
+    private void createPopupMenu() {
 
         popup = new JPopupMenu();
         JMenuItem insertItem = new JMenuItem("Добавить изображение ...");
         JMenuItem removeItem = new JMenuItem("Удалить страницу");
         popup.add(insertItem);
         popup.add(removeItem);
+        popup.addSeparator();
+        JMenuItem saveAsImagesItem = new JMenuItem("Сохранить как изображения ...");
+        popup.add(saveAsImagesItem);
 
         imageList.addMouseListener((MouseAdapter) new MouseAdapter() {
             @Override
@@ -63,6 +70,27 @@ public class PdfImagesPanel extends JPanel {
                     imageList.setSelectedIndex(index + 1);
                     refresh();
 
+                }
+            }
+        });
+        removeItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = imageList.getSelectedIndex();
+                if (imageListener != null) {
+                    imageListener.removeImage(index);
+                    if (listModel.getSize() > 0) {
+                        imageListener.drawImage(listModel.getElementAt(index).getImage());
+                    }
+                    refresh();
+                }
+            }
+        });
+        saveAsImagesItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (imageListener != null && listModel.getSize() > 0) {
+                    imageListener.saveAsImages();
                 }
             }
         });

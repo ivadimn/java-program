@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.Utils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -37,9 +38,10 @@ public class Render {
         return PDDocument.load(file);
     }
 
-    public static void saveToFile(PDDocument doc, List<PDFPage> pages, File file) throws IOException {
+    public static PDDocument saveToFile(PDDocument doc, List<PDFPage> pages, File file) throws IOException {
         PDDocument targetDoc = new PDDocument();
-        for (PDFPage page : pages) {
+        for (int i = 0; i < pages.size(); i++) {
+            PDFPage page = pages.get(i);
             if (page.isInDocument()) {
                 targetDoc.addPage(doc.getPage(page.getNumPage()));
             }
@@ -47,29 +49,24 @@ public class Render {
                 PDPage p = new PDPage();
                 targetDoc.addPage(p);
                 imageToPage(targetDoc, page.getImage(), p);
+                page.setInDocument(true);
+                page.setNumPage(i);
             }
         }
         targetDoc.save(file);
+        return targetDoc;
     }
-    public static PDDocument insertImage(PDDocument doc, BufferedImage img, int index) throws IOException {
 
-        PDDocument docTarget = new PDDocument();
-        PDPage page = new PDPage();
-        int numPages = doc.getNumberOfPages();
-        int count = 0;
-        int it = 0;
-        while (count < numPages) {
-            if (it != index) {
-                docTarget.addPage(doc.getPage(count++));
-                it++;
-            }
-            else {
-                docTarget.addPage(page);
-                imageToPage(docTarget, img, page);
-                it++;
-            }
+    public static void saveAsImages(File file, List<PDFPage> pages) throws IOException {
+        String fName = file.getName();
+        String ext = Utils.getFileExtension(fName);
+        String name = Utils.getClearFileName(fName);
+        String path = Utils.getFilePath(file.getPath());
+        for (int i = 0; i < pages.size(); i++) {
+            String f = String.format("%s%s-%d.%s", path, name, i, ext);
+            BufferedImage img = pages.get(i).getImage();
+            ImageIO.write(img, ext, new File(f));
         }
-        return docTarget;
     }
 
     public static void savePdf(PDDocument doc, File file) throws IOException {

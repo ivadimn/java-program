@@ -38,11 +38,11 @@ public class PDFDocument {
     }
 
     public void saveToFile(File file) throws IOException {
-        Render.saveToFile(document, pages, file);
+        document = Render.saveToFile(document, pages, file);
     }
 
-    public void saveAsImages() {
-
+    public void saveAsImages(File file) throws IOException {
+        Render.saveAsImages(file, pages);
     }
 
 }

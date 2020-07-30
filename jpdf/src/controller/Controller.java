@@ -33,4 +33,8 @@ public class Controller {
         document.removePage(index);
     }
 
+    public void saveAsImages(File file) throws IOException {
+        document.saveAsImages(file);
+    }
+
 }

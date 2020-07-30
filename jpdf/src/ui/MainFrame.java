@@ -27,7 +27,6 @@ public class MainFrame extends JFrame {
         setResizable(true);
 
         fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new PdfFileFilter());
         controller = new Controller();
 
         imagesPanel = new PdfImagesPanel();
@@ -41,6 +40,7 @@ public class MainFrame extends JFrame {
 
             @Override
             public void insertImageFromFile(int index) {
+                fileChooser.setFileFilter(Utils.IMAGE_FILES);
                 if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
                         BufferedImage image = Utils.getImageFromFile(fileChooser.getSelectedFile());
@@ -56,7 +56,21 @@ public class MainFrame extends JFrame {
 
             @Override
             public void removeImage(int index) {
+                controller.removeImage(index);
+            }
 
+            @Override
+            public void saveAsImages() {
+                fileChooser.setFileFilter(Utils.IMAGE_FILES);
+                if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        controller.saveAsImages(fileChooser.getSelectedFile());
+                    } catch (IOException ioException) {
+                        JOptionPane.showMessageDialog(MainFrame.this,
+                                ioException.getMessage(), "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         bigImagePanel = new BigImagePanel();
@@ -94,6 +108,7 @@ public class MainFrame extends JFrame {
         openFileItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                fileChooser.setFileFilter(Utils.PDF_FILES);
                 if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
                         controller.loadFromFile(fileChooser.getSelectedFile());
@@ -112,6 +127,7 @@ public class MainFrame extends JFrame {
         saveFileItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                fileChooser.setFileFilter(Utils.IMAGE_FILES);
                 if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
                         controller.saveToFile(fileChooser.getSelectedFile());

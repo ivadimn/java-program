@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="pdfbox-2.0.20">
+  <library name="slf4j-api-1.7.16">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../lib/pdfbox-2.0.20.jar!/" />
+      <root url="jar://$USER_HOME$/lib/slf4j-api-1.7.16.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
